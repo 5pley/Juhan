@@ -37,6 +37,35 @@
     *{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
   }
 
+  /* ════════ 스크롤 등장 애니메이션 ════════ */
+  /* JS가 켜져 있을 때만 숨김 처리 — JS 미지원 시 전부 그대로 보임 */
+  .js-reveal [data-reveal]{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .85s var(--ease), transform .85s var(--ease);
+    transition-delay:var(--rd, 0ms);
+    will-change:opacity, transform;
+  }
+  .js-reveal [data-reveal].shown{
+    opacity:1;
+    transform:none;
+  }
+
+  /* 좌측 패널: 아래가 아니라 옆에서 */
+  .js-reveal [data-reveal="left"]{transform:translateX(-18px);}
+  /* 이미지 자리: 살짝 확대되며 */
+  .js-reveal [data-reveal="scale"]{transform:scale(.97);}
+  /* 인용문: 금색 선이 자라나며 */
+  .js-reveal blockquote[data-reveal]{
+    transform:translateY(16px);
+    clip-path:inset(0 0 0 0);
+  }
+
+  /* 접근성: 모션 최소화 설정 시 애니메이션 없이 즉시 표시 */
+  @media (prefers-reduced-motion: reduce){
+    .js-reveal [data-reveal]{opacity:1 !important;transform:none !important;transition:none !important;}
+  }
+
   .page-wide{max-width:1040px;margin:0 auto;padding:0 28px;}
   @media (max-width:640px){.page-wide{padding:0 22px;}}
 
@@ -881,6 +910,74 @@
 </div>
 
 <script>
+  /* ---- 스크롤 등장 애니메이션 ---- */
+  (function(){
+    var root = document.documentElement;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 애니메이션 대상 지정: 섹션마다 순서대로 등장할 요소들
+    var groups = [
+      ['.frontis > .page > *', 'up'],
+      ['.dossier-top, .dossier-mid > *, .dossier-foot', 'left'],
+      ['.block > .chapter-head, .block > .chapter-num, .block > .chapter-title', 'up'],
+      ['.block p.body, .block blockquote, .block .ledger, .block .switch', 'up'],
+      ['.figure', 'up'],
+      ['.info-grid, .info-block, .rel-head, .rel', 'up'],
+      ['.step', 'up'],
+      ['.op-tabs, .scene-head, .scene-image, .scene-body', 'up'],
+      ['.hollow-light', 'up'],
+      ['.slot', 'scale'],
+      ['footer', 'up']
+    ];
+
+    var seen = new Set();
+    groups.forEach(function(g){
+      document.querySelectorAll(g[0]).forEach(function(el){
+        if(seen.has(el)) return;
+        seen.add(el);
+        el.setAttribute('data-reveal', g[1]);
+      });
+    });
+
+    if(reduce || !('IntersectionObserver' in window)) return;
+
+    root.classList.add('js-reveal');
+
+    // 같은 부모 안에서 몇 번째인지에 따라 지연 시간을 줘 순차 등장시킴
+    function stagger(el){
+      var parent = el.parentElement;
+      if(!parent) return 0;
+      var sibs = Array.prototype.filter.call(parent.children, function(c){
+        return c.hasAttribute && c.hasAttribute('data-reveal');
+      });
+      var i = sibs.indexOf(el);
+      return i < 0 ? 0 : Math.min(i, 6) * 80;
+    }
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var el = entry.target;
+        el.style.setProperty('--rd', stagger(el) + 'ms');
+        el.classList.add('shown');
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    seen.forEach(function(el){ io.observe(el); });
+
+    // 첫 화면에 이미 보이는 요소는 지연 없이 바로 표시
+    requestAnimationFrame(function(){
+      seen.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if(r.top < window.innerHeight * 0.9){
+          el.classList.add('shown');
+          io.unobserve(el);
+        }
+      });
+    });
+  })();
+
   /* ---- 성격 토글 + 좌측 패널 연동 ---- */
   (function(){
     // 변화 후 내용을 정하면 아래 after 값을 수정하세요
