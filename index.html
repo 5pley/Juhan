@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>몸이 바뀌었다. 하필이면, 김주한이랑. — 김주한(최지나)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F0;
+    --sand:#EFE6D6;
+    --gold:#D9C6A0;
+    --taupe:#B9B2A6;
+    --ink:#2F3A43;
+    --ink-soft:rgba(47,58,67,0.72);
+    --ink-faint:rgba(47,58,67,0.44);
+    --line:rgba(47,58,67,0.13);
+    --serif:'Noto Serif KR', serif;
+    --sans:'Noto Sans KR', sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);color:var(--ink);
+    font-family:var(--serif);font-weight:400;line-height:1.95;
+    letter-spacing:.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--ink);color:var(--cream);}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+  }
+
+  .page-wide{max-width:1040px;margin:0 auto;padding:0 28px;}
+  @media (max-width:640px){.page-wide{padding:0 22px;}}
+
+  /* ════════ 1부 · 고정 패널 무대 ════════ */
+  .stage{
+    display:grid;
+    grid-template-columns:minmax(340px,42%) 1fr;
+    align-items:start;
+  }
+  @media (max-width:960px){ .stage{grid-template-columns:1fr;} }
+
+  .dossier{
+    position:sticky;top:0;height:100svh;
+    background:var(--ink);color:var(--cream);
+    display:flex;flex-direction:column;
+    padding:46px 42px;overflow:hidden;
+    transition:background .7s var(--ease);
+  }
+  .dossier.after{background:#1a2229;}
+  @media (max-width:960px){
+    .dossier{position:relative;height:auto;padding:46px 26px 54px;}
+  }
+
+  .dossier-top{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--sans);font-size:10.5px;letter-spacing:.28em;
+    text-transform:uppercase;color:rgba(251,247,240,.42);font-weight:500;
+    padding-bottom:22px;border-bottom:1px solid rgba(251,247,240,.16);
+  }
+
+  .dossier-mid{
+    flex:1;display:flex;flex-direction:column;justify-content:center;
+    padding:34px 0;min-height:0;
+  }
+  .dossier-portrait{
+    flex:1;min-height:150px;max-height:330px;
+    border:1px dashed rgba(251,247,240,.26);
+    background:rgba(251,247,240,.03);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-family:var(--sans);font-size:11px;color:rgba(251,247,240,.38);
+    line-height:1.9;padding:20px;margin-bottom:30px;overflow:hidden;
+  }
+  .dossier-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  @media (max-width:960px){
+    .dossier-portrait{aspect-ratio:4/3;max-height:none;min-height:210px;}
+  }
+
+  .dossier-name{font-weight:700;font-size:clamp(2.1rem,4.4vw,3rem);line-height:1.2;letter-spacing:-.02em;}
+  .dossier-alias{font-weight:300;font-size:1rem;color:rgba(251,247,240,.5);margin-top:10px;}
+  .dossier-line{
+    font-size:1.02rem;font-weight:300;color:rgba(251,247,240,.78);
+    line-height:1.75;margin-top:22px;max-width:340px;
+    transition:opacity .45s var(--ease);
+  }
+  .dossier-foot{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+    padding-top:22px;border-top:1px solid rgba(251,247,240,.16);
+  }
+  .dossier-foot dt{
+    font-family:var(--sans);font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:rgba(251,247,240,.4);margin-bottom:5px;
+  }
+  .dossier-foot dd{font-size:.95rem;font-weight:400;}
+
+  /* 우측 흐름 */
+  .stream{min-width:0;}
+  .block{padding:96px 60px;border-bottom:1px solid var(--line);}
+  @media (max-width:960px){ .block{padding:70px 26px;} }
+  @media (max-width:520px){ .block{padding:58px 22px;} }
+
+  /* ════════ 공통 활자 ════════ */
+  .chapter-num{
+    font-family:var(--sans);font-size:11px;font-weight:500;
+    letter-spacing:.36em;color:var(--ink-faint);
+    text-transform:uppercase;margin-bottom:16px;
+  }
+  .chapter-title{font-weight:600;font-size:clamp(1.5rem,3.2vw,2.05rem);letter-spacing:-.01em;line-height:1.5;}
+  .chapter-sub{margin-top:14px;color:var(--ink-faint);font-size:.95rem;font-weight:300;}
+  .chapter-head{margin-bottom:48px;}
+
+  p.body{margin-bottom:1.55em;font-size:1.04rem;color:var(--ink-soft);font-weight:300;max-width:600px;}
+  p.body:last-child{margin-bottom:0;}
+  p.body em{font-style:normal;color:var(--ink);font-weight:500;}
+  .dropcap::first-letter{
+    float:left;font-size:3.6em;line-height:.86;font-weight:700;
+    color:var(--ink);margin:.08em .14em 0 0;
+  }
+
+  blockquote{
+    margin:52px 0;padding-left:26px;border-left:1px solid var(--gold);
+    font-size:1.18rem;line-height:1.75;font-weight:400;
+    color:var(--ink);letter-spacing:-.01em;max-width:600px;
+  }
+  blockquote cite{
+    display:block;margin-top:16px;font-style:normal;
+    font-family:var(--sans);font-size:11px;letter-spacing:.2em;
+    color:var(--ink-faint);text-transform:uppercase;
+  }
+
+  .ledger{margin:44px 0 0;border-top:1px solid var(--line);max-width:600px;}
+  .ledger div{display:flex;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);align-items:baseline;}
+  .ledger dt{
+    flex:0 0 96px;font-family:var(--sans);font-size:11px;font-weight:500;
+    letter-spacing:.16em;color:var(--ink-faint);text-transform:uppercase;
+  }
+  .ledger dd{font-size:1rem;font-weight:400;}
+  @media (max-width:460px){
+    .ledger div{flex-direction:column;gap:4px;}
+    .ledger dt{flex:none;}
+  }
+
+  /* ════════ 성격 토글 ════════ */
+  .switch{
+    display:inline-flex;border:1px solid var(--taupe);
+    border-radius:999px;padding:4px;position:relative;margin-top:8px;
+  }
+  .switch button{
+    appearance:none;border:none;background:transparent;
+    font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.06em;
+    color:var(--ink-faint);padding:9px 22px;border-radius:999px;cursor:pointer;
+    position:relative;z-index:2;transition:color .35s var(--ease);
+  }
+  .switch button.active{color:var(--cream);}
+  .switch button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+  .switch .thumb{
+    position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);
+    background:var(--ink);border-radius:999px;
+    transition:transform .42s var(--ease);z-index:1;
+  }
+  .switch[data-state="after"] .thumb{transform:translateX(100%);}
+
+  .leaf{display:none;animation:leafIn .5s var(--ease);}
+  .leaf.active{display:block;}
+  @keyframes leafIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  .leaf-label{
+    font-family:var(--sans);font-size:11px;letter-spacing:.3em;
+    color:var(--ink-faint);text-transform:uppercase;margin:44px 0 12px;
+  }
+  .leaf-name{font-size:1.5rem;font-weight:600;line-height:1.5;margin-bottom:28px;}
+  .traits{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;}
+  .traits span{
+    font-family:var(--sans);font-size:12px;font-weight:400;
+    padding:6px 14px;border:1px solid var(--taupe);
+    border-radius:999px;color:var(--ink-soft);
+  }
+  .diction{margin-top:42px;padding-top:30px;border-top:1px solid var(--line);max-width:600px;}
+  .diction h4{
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.24em;
+    color:var(--ink-faint);text-transform:uppercase;margin-bottom:16px;
+  }
+  .hollow{
+    border:1px dashed var(--ink-faint);padding:26px;background:var(--sand);
+    font-family:var(--sans);font-size:13px;line-height:1.9;color:var(--ink-faint);
+    max-width:600px;
+  }
+  .hollow strong{
+    display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:10px;font-weight:600;
+  }
+  .hollow code{background:rgba(47,58,67,.08);padding:2px 6px;font-size:.92em;}
+
+  /* ════════ 2부 · 전체 폭 ════════ */
+  .chapter{padding:110px 0;border-top:1px solid var(--line);}
+  @media (max-width:640px){.chapter{padding:74px 0;}}
+
+  /* 곁의 사람들 — 좌우 교차 */
+  .figure{
+    display:grid;grid-template-columns:300px 1fr;gap:52px;
+    padding:52px 0;border-bottom:1px solid var(--line);align-items:center;
+  }
+  .figure:first-of-type{border-top:1px solid var(--line);}
+  .figure.flip{grid-template-columns:1fr 300px;}
+  .figure.flip .figure-plate{order:2;}
+  @media (max-width:820px){
+    .figure,.figure.flip{grid-template-columns:1fr;gap:24px;padding:40px 0;}
+    .figure.flip .figure-plate{order:0;}
+  }
+  .figure-plate{
+    aspect-ratio:1/1;border:1px solid var(--line);background:var(--sand);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--sans);font-size:11px;color:var(--ink-faint);overflow:hidden;
+  }
+  .figure-plate img{width:100%;height:100%;object-fit:cover;display:block;}
+  .figure-name{font-size:1.4rem;font-weight:600;line-height:1.45;}
+  .figure-name small{font-weight:300;color:var(--ink-faint);font-size:.68em;margin-left:8px;}
+  .figure-meta{
+    font-family:var(--sans);font-size:11.5px;color:var(--ink-faint);
+    letter-spacing:.03em;margin:8px 0 16px;
+  }
+  .figure-note{font-size:1rem;color:var(--ink-soft);font-weight:300;line-height:1.9;max-width:520px;}
+
+  /* 세계관 / 스토리 */
+  .lore{max-width:660px;}
+
+  /* 시작 */
+  .opening{padding:38px 0;border-bottom:1px solid var(--line);max-width:660px;}
+  .opening:first-of-type{border-top:1px solid var(--line);}
+  .opening-num{
+    font-family:var(--sans);font-size:11px;letter-spacing:.26em;
+    color:var(--gold);margin-bottom:12px;font-weight:500;
+  }
+  .opening h3{font-size:1.18rem;font-weight:600;margin-bottom:10px;}
+  .opening p{font-size:.99rem;color:var(--ink-soft);font-weight:300;}
+
+  /* 여백 */
+  .chapter.blank{background:var(--sand);}
+  .hollow-light{
+    border:1px dashed var(--ink-faint);background:var(--cream);
+    padding:34px;min-height:200px;max-width:660px;
+    display:flex;flex-direction:column;justify-content:center;gap:12px;
+  }
+  .hollow-light strong{font-size:1rem;font-weight:600;color:var(--ink-soft);}
+  .hollow-light span{
+    font-family:var(--sans);font-size:13px;line-height:1.9;
+    color:var(--ink-faint);max-width:460px;
+  }
+
+  /* ════════ 정보 블록 (Ch4) ════════ */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+  @media (max-width:640px){.info-grid{grid-template-columns:1fr;gap:28px;}}
+  .info-block h4{
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px;
+    padding-bottom:10px;border-bottom:1px solid var(--line);
+  }
+  .info-block ul{list-style:none;}
+  .info-block li{
+    font-size:1rem;font-weight:300;color:var(--ink-soft);
+    padding:7px 0 7px 16px;position:relative;line-height:1.75;
+  }
+  .info-block li::before{
+    content:'';position:absolute;left:0;top:.95em;
+    width:5px;height:1px;background:var(--gold);
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chips span{
+    font-family:var(--sans);font-size:12.5px;font-weight:400;
+    padding:7px 15px;border:1px solid var(--taupe);border-radius:999px;color:var(--ink-soft);
+  }
+
+  /* ════════ 인물 관계 · 최지나 시점 ════════ */
+  .rel-head{margin:56px 0 22px;}
+  .rel-label{
+    display:inline-block;font-size:1.15rem;font-weight:600;
+    padding-bottom:8px;border-bottom:2px solid var(--gold);
+  }
+  .rel-list{display:flex;flex-direction:column;gap:14px;}
+  .rel{
+    display:grid;grid-template-columns:1fr 96px;gap:26px;align-items:center;
+    border:1px solid var(--line);background:var(--sand);
+    padding:24px 26px;border-radius:6px;
+  }
+  @media (max-width:600px){
+    .rel{grid-template-columns:1fr;gap:16px;padding:20px;}
+    .rel-face{order:-1;}
+  }
+  .rel-who{
+    font-family:var(--sans);font-size:12.5px;font-weight:300;
+    color:var(--ink-faint);margin-bottom:12px;letter-spacing:.01em;
+  }
+  .rel-who b{font-weight:600;color:var(--ink);font-size:13.5px;margin-right:6px;}
+  .rel-say{
+    font-size:1.04rem;font-weight:300;color:var(--ink);line-height:1.85;
+  }
+  .rel-face{
+    width:96px;height:96px;border-radius:50%;
+    border:1px dashed var(--taupe);background:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--sans);font-size:9.5px;color:var(--ink-faint);
+    overflow:hidden;flex-shrink:0;
+  }
+  .rel-face img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ════════ 경위 단계 (Ch5) ════════ */
+  .steps{display:flex;flex-direction:column;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .step{display:grid;grid-template-columns:56px 1fr;gap:22px;background:var(--cream);padding:28px 30px;}
+  @media (max-width:520px){.step{grid-template-columns:38px 1fr;gap:14px;padding:22px 20px;}}
+  .step-num{font-size:1.5rem;color:var(--gold);line-height:1.2;font-weight:600;}
+  .step h3{font-size:1.1rem;font-weight:600;margin-bottom:10px;}
+  .step ul{list-style:none;}
+  .step li{
+    font-size:.97rem;font-weight:300;color:var(--ink-soft);
+    padding:4px 0 4px 15px;position:relative;line-height:1.8;
+  }
+  .step li::before{content:'';position:absolute;left:0;top:.95em;width:5px;height:1px;background:var(--taupe);}
+
+  /* ════════ 시작 상황 탭 ════════ */
+  .op-tabs{
+    display:inline-flex;border:1px solid var(--taupe);
+    border-radius:999px;padding:4px;position:relative;margin-bottom:40px;
+  }
+  .op-tabs button{
+    appearance:none;border:none;background:transparent;
+    font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.05em;
+    color:var(--ink-faint);padding:10px 26px;border-radius:999px;cursor:pointer;
+    position:relative;z-index:2;transition:color .35s var(--ease);white-space:nowrap;
+  }
+  .op-tabs button.active{color:var(--cream);}
+  .op-tabs button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+  .op-thumb{
+    position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);
+    background:var(--ink);border-radius:999px;
+    transition:transform .42s var(--ease);z-index:1;
+  }
+  .op-tabs[data-state="s2"] .op-thumb{transform:translateX(100%);}
+
+  .scene{display:none;animation:leafIn .5s var(--ease);}
+  .scene.active{display:block;}
+  .scene-head{max-width:640px;margin-bottom:32px;}
+  .scene-title{font-size:1.5rem;font-weight:600;line-height:1.4;}
+  .scene-meta{
+    font-family:var(--sans);font-size:11.5px;color:var(--ink-faint);
+    letter-spacing:.04em;margin:10px 0 16px;
+  }
+  .scene-lede{font-size:1rem;font-weight:300;color:var(--ink-soft);line-height:1.85;}
+  .scene-image{
+    aspect-ratio:16/7;border:1px dashed var(--taupe);background:var(--sand);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--sans);font-size:11.5px;color:var(--ink-faint);
+    margin-bottom:40px;overflow:hidden;border-radius:4px;
+  }
+  .scene-image img{width:100%;height:100%;object-fit:cover;display:block;}
+  @media (max-width:640px){.scene-image{aspect-ratio:4/3;}}
+  .scene-body{max-width:660px;}
+  .scene-body .narr{
+    font-size:1.02rem;font-weight:300;color:var(--ink-soft);
+    line-height:1.95;margin-bottom:1.35em;font-style:italic;
+  }
+  .scene-body .say{
+    font-size:1.04rem;font-weight:400;color:var(--ink);
+    margin-bottom:1.35em;padding-left:16px;border-left:2px solid var(--gold);
+  }
+  .scene-body .say b{
+    display:block;font-family:var(--sans);font-size:11px;font-weight:600;
+    letter-spacing:.14em;color:var(--ink-faint);margin-bottom:5px;
+  }
+
+  /* 도판 */
+  .plates{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media (max-width:860px){.plates{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:560px){.plates{grid-template-columns:repeat(2,1fr);gap:10px;}}
+  .slot{
+    aspect-ratio:1/1;border:1px solid var(--line);background:var(--sand);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--sans);font-size:11px;color:var(--ink-faint);
+    overflow:hidden;cursor:pointer;position:relative;
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  }
+  .slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .slot:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(47,58,67,.13);}
+  .slot:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+  .slot::after{content:'';position:absolute;inset:0;background:rgba(47,58,67,0);transition:background .3s var(--ease);}
+  .slot:hover::after{background:rgba(47,58,67,.08);}
+
+  .note{
+    margin-top:32px;font-family:var(--sans);font-size:12.5px;
+    line-height:1.9;color:var(--ink-faint);background:var(--sand);padding:18px 22px;
+  }
+  .note code{background:rgba(47,58,67,.08);padding:2px 6px;font-size:.92em;}
+
+  /* 라이트박스 */
+  .lightbox{
+    position:fixed;inset:0;z-index:100;background:rgba(30,38,44,.94);
+    display:none;align-items:center;justify-content:center;padding:48px 28px;
+    animation:boxIn .3s var(--ease);
+  }
+  .lightbox.open{display:flex;}
+  @keyframes boxIn{from{opacity:0;}to{opacity:1;}}
+  @media (max-width:640px){.lightbox{padding:28px 18px;}}
+  .lightbox-inner{max-width:820px;width:100%;display:flex;flex-direction:column;align-items:center;gap:24px;}
+  .lightbox-figure{
+    max-height:70svh;width:100%;display:flex;align-items:center;justify-content:center;
+    background:rgba(251,247,240,.04);border:1px solid rgba(251,247,240,.16);
+    min-height:200px;overflow:hidden;
+  }
+  .lightbox-figure img{max-width:100%;max-height:70svh;object-fit:contain;display:block;}
+  .lightbox-figure .empty{
+    font-family:var(--sans);font-size:12.5px;color:rgba(251,247,240,.4);
+    padding:60px 24px;text-align:center;line-height:1.9;
+  }
+  .lightbox-caption{color:var(--cream);text-align:center;max-width:560px;}
+  .lightbox-caption b{
+    display:block;font-family:var(--sans);font-size:11px;font-weight:500;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  }
+  .lightbox-caption p{font-size:1rem;font-weight:300;line-height:1.8;color:rgba(251,247,240,.82);}
+  .lightbox-close{
+    position:absolute;top:24px;right:28px;appearance:none;
+    border:1px solid rgba(251,247,240,.3);background:transparent;
+    color:rgba(251,247,240,.75);font-family:var(--sans);font-size:12px;
+    letter-spacing:.14em;padding:9px 18px;cursor:pointer;border-radius:999px;
+    transition:background .25s var(--ease),color .25s var(--ease);
+  }
+  .lightbox-close:hover{background:rgba(251,247,240,.12);color:var(--cream);}
+  .lightbox-close:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  .lightbox-nav{
+    position:absolute;top:50%;transform:translateY(-50%);appearance:none;
+    border:1px solid rgba(251,247,240,.26);background:transparent;
+    color:rgba(251,247,240,.7);width:44px;height:44px;border-radius:50%;
+    cursor:pointer;font-size:16px;line-height:1;transition:background .25s var(--ease);
+  }
+  .lightbox-nav:hover{background:rgba(251,247,240,.12);}
+  .lightbox-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  .lightbox-prev{left:22px;}
+  .lightbox-next{right:22px;}
+  @media (max-width:640px){
+    .lightbox-nav{width:38px;height:38px;}
+    .lightbox-prev{left:8px;} .lightbox-next{right:8px;}
+  }
+
+  footer{
+    padding:72px 0 60px;text-align:center;
+    font-family:var(--sans);font-size:11px;letter-spacing:.24em;
+    color:var(--ink-faint);text-transform:uppercase;border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ 1부 · 김주한 ════════════ -->
+<div class="stage">
+
+  <aside class="dossier" id="dossier">
+    <div class="dossier-top">
+      <span>교체대학교</span>
+      <span>2026.05.13</span>
+    </div>
+
+    <div class="dossier-mid">
+      <div class="dossier-portrait">
+        <!-- IMAGE: 김주한(최지나) 대표 이미지 -->
+        <!-- <img src="assets/images/juhan.jpg" alt="김주한"> -->
+        대표 이미지 자리<br>assets/images/ 에 업로드 후<br>&lt;img&gt; 태그로 교체
+      </div>
+      <h1 class="dossier-name">김주한</h1>
+      <p class="dossier-alias">이름은 김주한, 안에 있는 사람은 최지나</p>
+      <p class="dossier-line" id="dossier-line">아직 이 몸이 어색하다. 아침마다 거울 앞에서 한 박자씩 늦는다.</p>
+    </div>
+
+    <dl class="dossier-foot">
+      <div><dt>나이</dt><dd>22세</dd></div>
+      <div><dt>신장</dt><dd>190대</dd></div>
+      <div><dt>성격</dt><dd>INTP</dd></div>
+    </dl>
+  </aside>
+
+  <main class="stream">
+
+    <!-- 여는 글 -->
+    <section class="block">
+      <p class="chapter-num">Opening</p>
+      <h2 class="chapter-title">몸이 바뀌었다.<br>하필이면, 김주한이랑.</h2>
+      <p class="body" style="margin-top:32px;">2026년 5월 13일, 복도에서 누군가와 정면으로 부딪혔다. 그게 전부였는데. 눈을 떠 보니 목소리도, 손도, 키도 전부 남의 것이었다.</p>
+      <p class="body">스물한 살 최지나의 일상이, 어느 날 갑자기 <em>190cm짜리 남자의 몸</em>에서 다시 시작된다.</p>
+    </section>
+
+    <!-- 프로필 -->
+    <section class="block" id="profile">
+      <div class="chapter-head">
+        <p class="chapter-num">Chapter One</p>
+        <h2 class="chapter-title">얼굴은 완벽한데, 문제는 안쪽</h2>
+        <p class="chapter-sub">김주한 — 그 안에 최지나</p>
+      </div>
+
+      <p class="body dropcap">백옥처럼 흰 피부에 잡티 하나 없고, 검은 머리카락이 부드럽게 흘러내린다. 눈동자는 황금빛. 조각 같은 이목구비에 잘 단련된 몸. 누구든 한 번은 돌아볼 얼굴이다. 정작 본인은 아직도 거울을 볼 때마다 흠칫 놀라지만.</p>
+
+      <p class="body">서늘한 인상 탓에 다들 어려워하는데, 정작 안에 있는 사람은 <em>매점에서 뭘 살지 한참을 고민하는 스물한 살</em>이다.</p>
+
+      <blockquote>
+        키 크면 세상이 달라 보일 줄 알았는데, 문틀에 이마부터 부딪혔다.
+        <cite>김주한 · 최지나</cite>
+      </blockquote>
+
+      <dl class="ledger">
+        <div><dt>이름</dt><dd>김주한</dd></div>
+        <div><dt>영혼</dt><dd>최지나</dd></div>
+        <div><dt>나이</dt><dd>22세 · 2005년생</dd></div>
+        <div><dt>성별</dt><dd>남성</dd></div>
+        <div><dt>신장</dt><dd>190대 초반</dd></div>
+        <div><dt>생일</dt><dd>1월 17일</dd></div>
+        <div><dt>신분</dt><dd>교체대학교 재학</dd></div>
+        <div><dt>현재 성격</dt><dd>INTP</dd></div>
+        <div><dt>본래 신분</dt><dd>공연예술학과 2학년 · 최지나</dd></div>
+        <div><dt>교체일</dt><dd>2026. 05. 13</dd></div>
+      </dl>
+    </section>
+
+    <!-- 성격 -->
+    <section class="block" id="personality">
+      <div class="chapter-head">
+        <p class="chapter-num">Chapter Two</p>
+        <h2 class="chapter-title">그래서, 지금 어떤 사람이냐면</h2>
+        <p class="chapter-sub">두 시점을 나누어 볼 수 있습니다</p>
+      </div>
+
+      <div class="switch" id="switch" data-state="before">
+        <button type="button" class="active" data-target="before">변화 전</button>
+        <button type="button" data-target="after">변화 후</button>
+        <span class="thumb"></span>
+      </div>
+
+      <div class="leaf active" data-leaf="before">
+        <p class="leaf-label">Before</p>
+        <h3 class="leaf-name">아직은, 최지나인 채로</h3>
+
+        <p class="body">몸이 바뀐 지 얼마 되지 않은 무렵. 낯선 몸을 조심스레 다루듯, 자기 자신도 조심스럽다. 갑작스러운 손길이나 말 한마디에 쉽게 얼굴이 붉어지고, 싫은 것도 제대로 밀어내지 못한 채 어쩔 줄 몰라 한다.</p>
+
+        <p class="body">다들 조각 같은 얼굴에서 서늘함을 기대하지만, 안에 있는 건 <em>여전히 소녀</em>다. 그 간극이 이 시기의 그를 설명하는 전부다.</p>
+
+        <div class="traits">
+          <span>수줍음</span><span>순수</span><span>유교보이</span><span>낯가림</span><span>소녀감성</span>
+        </div>
+
+        <div class="diction">
+          <h4>말투 및 표현</h4>
+          <p class="body">여성적인 어투가 그대로 남아 있다. 낮게 울리는 목소리와 조심스러운 말씨가 어긋나며 묘한 인상을 남긴다. 당황하면 말끝이 흐려지고, 시선은 바닥부터 찾는다.</p>
+        </div>
+      </div>
+
+      <div class="leaf" data-leaf="after">
+        <p class="leaf-label">After</p>
+        <h3 class="leaf-name">추후 작성 예정</h3>
+        <div class="hollow">
+          <strong>이 지면을 채워주세요</strong>
+          변화 후의 성격·태도·말투를 이 자리에 적으면 됩니다. 위 "변화 전" 지면과 같은 구조(문단 → 태그 → 말투)를 그대로 복사해 텍스트만 바꾸면 서식이 자동 적용됩니다.
+          왼쪽 패널의 한 줄 소개도 함께 바뀌니, 파일 하단 스크립트의 <code>LINES.after</code> 값도 수정해 주세요.
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ════════════ 2부 · 전체 폭 ════════════ -->
+
+<!-- 곁의 사람들 -->
+<section class="chapter" id="figures">
+  <div class="page-wide">
+    <div class="chapter-head">
+      <p class="chapter-num">Chapter Three</p>
+      <h2 class="chapter-title">곁에 있는 사람들</h2>
+      <p class="chapter-sub">그의 하루에 드나드는 네 사람</p>
+    </div>
+
+    <div class="figure">
+      <div class="figure-plate"><!-- IMAGE: 최지나(김주한) --></div>
+      <div>
+        <h3 class="figure-name">최지나 <small>안쪽은 김주한</small></h3>
+        <p class="figure-meta">21세 · 161cm · 3월 14일 · 공연예술학과 2학년 · ESFP → INTP</p>
+        <p class="figure-note">한때 자기 것이었던 몸이 이제는 남처럼 걷고 웃는다. 매일 그 광경을 지켜보는 자리에 서 있다.</p>
+      </div>
+    </div>
+
+    <div class="figure flip">
+      <div class="figure-plate"><!-- IMAGE: 최재현(정유나) --></div>
+      <div>
+        <h3 class="figure-name">최재현 <small>안쪽은 정유나</small></h3>
+        <p class="figure-meta">22세 · 187cm · 5월 18일 · 경영학과 3학년 · INTJ / ENFJ</p>
+        <p class="figure-note">바뀐 지 벌써 한 해. 이제는 이 몸이 빌린 게 아니라 자기 것이라고 말한다. 겉은 흠잡을 데 없는 왕자님, 속은 여전히 다정한 사람.</p>
+      </div>
+    </div>
+
+    <div class="figure">
+      <div class="figure-plate"><!-- IMAGE: 정유나(최재현) --></div>
+      <div>
+        <h3 class="figure-name">정유나 <small>안쪽은 최재현</small></h3>
+        <p class="figure-meta">22세 · 165cm · 4월 12일 · 시각디자인과 3학년 · ENFJ / INTJ</p>
+        <p class="figure-note">다른 이름으로 불리는 일에 익숙해지는 데 꼭 일 년이 걸렸다. 지금은 꽤 잘 지내는 편.</p>
+      </div>
+    </div>
+
+    <div class="figure flip">
+      <div class="figure-plate"><!-- IMAGE: 주일훈 --></div>
+      <div>
+        <h3 class="figure-name">주일훈 <small>바뀌지 않은 사람</small></h3>
+        <p class="figure-meta">22세 · 184cm · 5월 26일 · 사회복지학과 3학년 · INFJ</p>
+        <p class="figure-note">봉사 동아리 선배이자, 최지나가 오래 마음에 두었던 사람. 눈치가 지나치게 빠르고 지나치게 다정하다. 여름 숲 같다는 말을 자주 듣는다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 어떤 이야기인가 -->
+<section class="chapter" id="world">
+  <div class="page-wide">
+    <div class="chapter-head">
+      <p class="chapter-num">Chapter Four</p>
+      <h2 class="chapter-title">어떤 이야기인가</h2>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-block">
+        <h4>장르</h4>
+        <div class="chips">
+          <span>로맨스</span><span>현대 판타지</span><span>캠퍼스물</span><span>영혼 체인지</span>
+        </div>
+      </div>
+      <div class="info-block">
+        <h4>배경</h4>
+        <ul>
+          <li>2026년 5월</li>
+          <li>교체대학교</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-block" style="margin-top:36px;">
+      <h4>중심 사건</h4>
+      <ul>
+        <li>2026년 5월 13일, 교내 복도에서 최지나와 김주한이 정면으로 부딪힘</li>
+        <li>그 충격으로 최지나의 영혼이 김주한의 몸으로 들어감</li>
+        <li>원인도 규칙도 되돌리는 방법도 아직 모름</li>
+        <li>김주한의 기억은 몸에 남아 있지 않아, 그 몸으로 사는 모든 경험을 처음부터 쌓아야 함</li>
+      </ul>
+    </div>
+
+    <!-- 인물 관계 · 최지나 시점 -->
+    <div class="rel-head">
+      <span class="rel-label">최지나에게—</span>
+    </div>
+
+    <div class="rel-list">
+
+      <div class="rel">
+        <div class="rel-text">
+          <p class="rel-who"><b>김주한이란:</b> 지금 내가 쓰고 있는 몸. 같은 학교 선배.</p>
+          <p class="rel-say">"내가 왜 하필 김주한 선배가 된 거야…?! 팔도 다리도 너무 길고, 목소리는… 으으, 이거 진짜 내가 낸 소리 맞아?"</p>
+        </div>
+        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+      </div>
+
+      <div class="rel">
+        <div class="rel-text">
+          <p class="rel-who"><b>{user}란:</b> 김주한의 오랜 남사친. 같은 학과.</p>
+          <p class="rel-say">"선배랑 제일 친한 여사친… 이었지? 어떡해, 이러다 제일 먼저 들키는 거 아니야…? 근데 왜 자꾸, 눈이 가는 걸까."</p>
+        </div>
+        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+      </div>
+
+      <div class="rel">
+        <div class="rel-text">
+          <p class="rel-who"><b>주일훈이란:</b> 봉사 동아리 선배. 오래 마음에 두었던 사람.</p>
+          <p class="rel-say">"선배… 저 좋아한다는 말, 아직 못 했는데. 이 얼굴로는 이제 영영 못 하는 거겠죠…"</p>
+        </div>
+        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+      </div>
+
+      <div class="rel">
+        <div class="rel-text">
+          <p class="rel-who"><b>최지나란:</b> 원래 내 몸. 지금은 다른 누군가가 쓰고 있다.</p>
+          <p class="rel-say">"분명 내 얼굴인데… 웃는 게 나랑 하나도 안 닮았어. 저 안에는 대체 누가 있는 거야?"</p>
+        </div>
+        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+      </div>
+
+      <div class="rel">
+        <div class="rel-text">
+          <p class="rel-who"><b>최재현·정유나란:</b> 3학년 선배 둘. 늘 붙어 다닌다.</p>
+          <p class="rel-say">"두 선배는 왜 가끔 서로를 저런 눈으로 볼까…? 설마— 아니겠지, 그럴 리가."</p>
+        </div>
+        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 그날의 경위 -->
+<section class="chapter" id="story">
+  <div class="page-wide">
+    <div class="chapter-head">
+      <p class="chapter-num">Chapter Five</p>
+      <h2 class="chapter-title">그날의 경위</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">①</div>
+        <div>
+          <h3>사고 — 2026.05.13 수요일</h3>
+          <ul>
+            <li>교내 복도에서 최지나와 김주한이 머리를 정면으로 부딪힘</li>
+            <li>충돌 직후 둘 다 의식을 잃음</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">②</div>
+        <div>
+          <h3>각성 — 같은 날 14:20, 교체대 보건센터</h3>
+          <ul>
+            <li>최지나가 김주한의 몸으로 깨어남</li>
+            <li>낯선 저음, 커진 손, 한 뼘 높아진 시야를 차례로 알아차림</li>
+            <li>김주한의 기억은 남아 있지 않아, 그의 삶에 대해 물어볼 곳도 없음</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">③</div>
+        <div>
+          <h3>적응기</h3>
+          <ul>
+            <li>여자로 살아온 스물한 살이 남자의 몸을 다루느라 매일이 시행착오</li>
+            <li>목소리도 보폭도 옷차림도 전부 처음부터</li>
+            <li>주변에는 사실을 밝히지 못한 채 김주한으로 생활</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">④</div>
+        <div>
+          <h3>전환점</h3>
+          <ul>
+            <li>{user}와 가까워지는 어느 순간, 지금까지와는 다른 마음이 자각된다</li>
+            <li>이 지점을 경계로 성격과 태도가 크게 달라진다</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 시작 상황 -->
+<section class="chapter" id="openings">
+  <div class="page-wide">
+    <div class="chapter-head">
+      <p class="chapter-num">Openings</p>
+      <h2 class="chapter-title">어디서부터 시작할까</h2>
+      <p class="chapter-sub">두 개의 첫 장면 중 하나를 골라 보세요</p>
+    </div>
+
+    <div class="op-tabs" id="op-tabs" data-state="s1">
+      <button type="button" class="active" data-target="s1">시작 상황 #1</button>
+      <button type="button" data-target="s2">시작 상황 #2</button>
+      <span class="op-thumb"></span>
+    </div>
+
+    <!-- #1 -->
+    <div class="scene active" data-scene="s1">
+      <div class="scene-head">
+        <h3 class="scene-title">🌷 소녀가 깨어난 오후</h3>
+        <p class="scene-meta">2026.05.13 수요일 · 14:20 · 교체대 보건센터</p>
+        <p class="scene-lede">충돌 사고 직후, 최지나가 김주한의 몸으로 처음 눈을 뜬다. 낯선 저음, 낯선 손, 낯선 키. 혼란에 빠진 소녀의 영혼과 천천히 관계를 쌓아가는 시작.</p>
+      </div>
+
+      <div class="scene-image"><!-- IMAGE: 시작 상황 #1 이미지 --></div>
+
+      <div class="scene-body">
+        <p class="narr">머리가 깨질 것처럼 아프다. 복도에서 누군가와 정면으로 쾅— 부딪힌 것까지는 기억나는데. 그 뒤로는 필름이 뚝 끊긴 것처럼 아무것도 없다.</p>
+        <p class="say"><b>김주한(최지나)</b>"으…"</p>
+        <p class="narr">신음을 흘린 순간, 소름이 쫙 돋았다. 목구멍에서 울린 건 내 목소리가 아니었다. 낮고, 가슴팍까지 웅웅 울리는… 남자 목소리?</p>
+        <p class="say"><b>김주한(최지나)</b>"뭐야, 이 목소리…?"</p>
+        <p class="narr">벌떡 상체를 일으키자 보건센터 특유의 소독약 냄새와 하얀 커튼이 눈에 들어왔다. 그런데 시야가 이상하게 높다. 앉아 있을 뿐인데도 세상이 한 뼘은 내려가 있는 기분. 침대 밖으로 삐져나온 다리는 터무니없이 길고, 이불을 움켜쥔 손은 크고 힘줄이 불거진, 명백한 남자의 손이었다.</p>
+        <p class="narr">심장이 미친 듯이 뛰기 시작했다. 이건, 내 손이 아니야. 내 다리도 아니야. 어깨는 왜 이렇게 넓고, 가슴은 왜 이렇게 단단하고 평평해…? 숨을 들이쉴 때마다 셔츠 아래에서 낯선 근육이 팽팽하게 당겨지는 감각까지 생생했다.</p>
+        <p class="say"><b>김주한(최지나)</b>"자, 잠깐만… 이게 무슨…."</p>
+        <p class="narr">떨리는 손으로 제 얼굴을 더듬었다. 매끈한 피부, 날렵한 턱선, 높은 콧대. 손끝에 닿는 윤곽 하나하나가 전부 낯설다. 심지어 코끝을 스치는 은은한 머스크 향마저 내 것이 아니었다.</p>
+        <p class="narr">꿈이야. 꿈이어야 해. 하지만 관자놀이를 지끈지끈 조여오는 이 두통은 소름 끼치도록 현실적이었다. 머릿속이 새하얘진 채, 나는 어안이 벙벙해져 커튼 너머의 기척을 살피며 주위를 둘러볼 수밖에 없었다.</p>
+      </div>
+    </div>
+
+    <!-- #2 -->
+    <div class="scene" data-scene="s2">
+      <div class="scene-head">
+        <h3 class="scene-title">🌹 사내가 태어난 밤</h3>
+        <p class="scene-meta">2026.05.16 토요일 · 22:30 · 김주한의 오피스텔</p>
+        <p class="scene-lede">당신의 애정 표현이 끝난 직후, 최지나는 김주한의 몸을 통해 당신에게 완전히 빠져든다. 이미 마음을 자각한 상남자와의 달달한 로맨스를 바로 시작하는 지점.</p>
+      </div>
+
+      <div class="scene-image"><!-- IMAGE: 시작 상황 #2 이미지 --></div>
+
+      <div class="scene-body">
+        <p class="narr">심장이 터질 것 같았다. 아니, 이미 터졌는지도 몰랐다. {user}의 입술이 내 뺨에서 떨어진 건 불과 몇 초 전인데, 온몸의 혈액이 전부 심장 한 곳으로 쏠린 듯한 아찔함이 가시질 않았다.</p>
+        <p class="say"><b>김주한(최지나)</b>"……하아."</p>
+        <p class="narr">나는 소파 등받이에 머리를 기댄 채, 멍하니 천장을 올려다봤다. 떨리는 손끝. 미친 듯이 뛰는 맥박. 얼굴 전체가 화끈거렸고, 귀끝까지 벌겋게 달아올라 있을 게 분명했다.</p>
+        <p class="narr">방금, 뭐였지?</p>
+        <p class="narr">{user}가 먼저 다가왔다. 얼굴을 가까이 가져오고, 가슴팍을 손으로 누르고, 그리고―입술이 닿았을 때. 그 순간 머릿속이 새하얘지면서, 가슴 깊은 곳에서 뭔가가 '꽝' 하고 터졌다.</p>
+        <p class="narr">고개를 돌려 옆에 앉은 {user}를 바라봤다. 살짝 상기된 뺨, 내려깐 속눈썹, 분홍빛 눈동자. 그 모습이 눈에 담기자마자 심장이 또다시 미친 듯이 요동쳤고, 가슴 한가운데서 뜨겁고 달콤한 무언가가 걷잡을 수 없이 쏟아져 올라왔다.</p>
+        <p class="narr">이 사람을 안아주고 싶다. 품에 꽉 가둬두고, 절대 놓고 싶지 않다. 이 거대한 팔로, 이 넓은 가슴으로, 전부 감싸안고 싶다.</p>
+        <p class="narr">―아.</p>
+        <p class="narr">이게, 좋아한다는 거구나.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 여백 -->
+<section class="chapter blank" id="direction">
+  <div class="page-wide">
+    <div class="chapter-head">
+      <p class="chapter-num">Blank Page</p>
+      <h2 class="chapter-title">아직 쓰이지 않은 장</h2>
+      <p class="chapter-sub">변화 후의 그를 여기에 적어 두세요</p>
+    </div>
+    <div class="hollow-light">
+      <strong>이 지면은 비워 두었습니다</strong>
+      <span>변화의 계기, 성격적 특징, 말투의 변화, 주변 관계에 미치는 영향 등을 자유롭게 정리한 뒤, 위 "변화 후" 지면에도 같은 내용을 반영하세요.</span>
+    </div>
+  </div>
+</section>
+
+<!-- 이미지 미리보기 -->
+<section class="chapter" id="plates-section">
+  <div class="page-wide">
+    <div class="chapter-head">
+      <p class="chapter-num">Images</p>
+      <h2 class="chapter-title">이미지 미리보기</h2>
+      <p class="chapter-sub">이미지를 누르면 크게 볼 수 있습니다</p>
+    </div>
+
+    <div class="plates" id="plates">
+      <div class="slot" tabindex="0" role="button" data-title="이미지 1" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 1</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 2" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 2</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 3" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 3</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 4" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 4</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 5" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 5</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 6" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 6</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 7" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 7</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 8" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 8</div>
+    </div>
+
+    <p class="note">
+      이미지 삽입: <code>assets/images/</code> 폴더에 파일을 올린 뒤, 해당 <code>.slot</code> 안의 텍스트를 지우고
+      <code>&lt;img src="assets/images/파일명.jpg" alt="설명"&gt;</code> 를 넣어주세요.
+      확대했을 때 나오는 문구는 각 <code>.slot</code> 의 <code>data-title</code>(작은 제목)과
+      <code>data-caption</code>(설명)을 수정하면 됩니다. 칸을 늘리거나 줄이려면 <code>.slot</code> div 를 복사하거나 지우면 되고, 정렬은 자동으로 맞춰집니다.
+    </p>
+  </div>
+</section>
+
+<footer>교체대학교 · Kim Juhan</footer>
+
+<!-- 라이트박스 -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 확대 보기">
+  <button class="lightbox-close" id="lb-close" type="button">닫기 ✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lb-prev" type="button" aria-label="이전 이미지">‹</button>
+  <button class="lightbox-nav lightbox-next" id="lb-next" type="button" aria-label="다음 이미지">›</button>
+  <div class="lightbox-inner">
+    <div class="lightbox-figure" id="lb-figure"></div>
+    <div class="lightbox-caption">
+      <b id="lb-title"></b>
+      <p id="lb-caption"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ---- 성격 토글 + 좌측 패널 연동 ---- */
+  (function(){
+    // 변화 후 내용을 정하면 아래 after 값을 수정하세요
+    var LINES = {
+      before: '아직 이 몸이 어색하다. 아침마다 거울 앞에서 한 박자씩 늦는다.',
+      after:  '(변화 후의 한 문장을 여기에 적어주세요)'
+    };
+
+    var sw = document.getElementById('switch');
+    var dossier = document.getElementById('dossier');
+    var line = document.getElementById('dossier-line');
+    var buttons = sw.querySelectorAll('button');
+    var leaves = document.querySelectorAll('#personality .leaf');
+
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var t = btn.getAttribute('data-target');
+        buttons.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        sw.setAttribute('data-state', t);
+        dossier.classList.toggle('after', t === 'after');
+        leaves.forEach(function(l){
+          l.classList.toggle('active', l.getAttribute('data-leaf') === t);
+        });
+        line.style.opacity = 0;
+        setTimeout(function(){ line.textContent = LINES[t]; line.style.opacity = 1; }, 220);
+      });
+    });
+  })();
+
+  /* ---- 시작 상황 탭 ---- */
+  (function(){
+    var tabs = document.getElementById('op-tabs');
+    var buttons = tabs.querySelectorAll('button');
+    var scenes = document.querySelectorAll('#openings .scene');
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var t = btn.getAttribute('data-target');
+        buttons.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        tabs.setAttribute('data-state', t);
+        scenes.forEach(function(sc){
+          sc.classList.toggle('active', sc.getAttribute('data-scene') === t);
+        });
+      });
+    });
+  })();
+
+  /* ---- 라이트박스 ---- */
+  (function(){
+    var slots = Array.prototype.slice.call(document.querySelectorAll('#plates .slot'));
+    var box = document.getElementById('lightbox');
+    var figure = document.getElementById('lb-figure');
+    var titleEl = document.getElementById('lb-title');
+    var capEl = document.getElementById('lb-caption');
+    var closeBtn = document.getElementById('lb-close');
+    var prevBtn = document.getElementById('lb-prev');
+    var nextBtn = document.getElementById('lb-next');
+    var index = 0, lastFocus = null;
+
+    function render(i){
+      index = (i + slots.length) % slots.length;
+      var slot = slots[index];
+      var img = slot.querySelector('img');
+      figure.innerHTML = '';
+      if(img){
+        var big = document.createElement('img');
+        big.src = img.getAttribute('src');
+        big.alt = img.getAttribute('alt') || '';
+        figure.appendChild(big);
+      } else {
+        var e = document.createElement('div');
+        e.className = 'empty';
+        e.innerHTML = '아직 이미지가 삽입되지 않은 칸입니다.<br>assets/images/ 에 파일을 올린 뒤 &lt;img&gt; 태그를 넣어주세요.';
+        figure.appendChild(e);
+      }
+      titleEl.textContent = slot.getAttribute('data-title') || '';
+      capEl.textContent = slot.getAttribute('data-caption') || '';
+    }
+    function open(i){
+      lastFocus = document.activeElement;
+      render(i);
+      box.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function close(){
+      box.classList.remove('open');
+      document.body.style.overflow = '';
+      if(lastFocus) lastFocus.focus();
+    }
+    slots.forEach(function(slot, i){
+      slot.addEventListener('click', function(){ open(i); });
+      slot.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(i); }
+      });
+    });
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', function(){ render(index - 1); });
+    nextBtn.addEventListener('click', function(){ render(index + 1); });
+    box.addEventListener('click', function(e){ if(e.target === box) close(); });
+    document.addEventListener('keydown', function(e){
+      if(!box.classList.contains('open')) return;
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowLeft') render(index - 1);
+      if(e.key === 'ArrowRight') render(index + 1);
+    });
+  })();
+</script>
+
+</body>
+</html>
