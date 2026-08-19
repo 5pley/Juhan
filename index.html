@@ -38,7 +38,6 @@
   }
 
   /* ════════ 스크롤 등장 애니메이션 ════════ */
-  /* JS가 켜져 있을 때만 숨김 처리 — JS 미지원 시 전부 그대로 보임 */
   .js-reveal [data-reveal]{
     opacity:0;
     transform:translateY(22px);
@@ -51,17 +50,13 @@
     transform:none;
   }
 
-  /* 좌측 패널: 아래가 아니라 옆에서 */
   .js-reveal [data-reveal="left"]{transform:translateX(-18px);}
-  /* 이미지 자리: 살짝 확대되며 */
   .js-reveal [data-reveal="scale"]{transform:scale(.97);}
-  /* 인용문: 금색 선이 자라나며 */
   .js-reveal blockquote[data-reveal]{
     transform:translateY(16px);
     clip-path:inset(0 0 0 0);
   }
 
-  /* 접근성: 모션 최소화 설정 시 애니메이션 없이 즉시 표시 */
   @media (prefers-reduced-motion: reduce){
     .js-reveal [data-reveal]{opacity:1 !important;transform:none !important;transition:none !important;}
   }
@@ -113,7 +108,6 @@
     .dossier-portrait{aspect-ratio:4/3;max-height:none;min-height:210px;}
   }
 
-  /* 화면에는 보이지 않지만 검색엔진·스크린리더는 읽는 제목 */
   .sr-only{
     position:absolute;width:1px;height:1px;
     padding:0;margin:-1px;overflow:hidden;
@@ -138,7 +132,6 @@
   }
   .dossier-foot dd{font-size:.95rem;font-weight:400;}
 
-  /* 우측 흐름 */
   .stream{min-width:0;}
   .block{padding:96px 60px;border-bottom:1px solid var(--line);}
   @media (max-width:960px){ .block{padding:70px 26px;} }
@@ -157,11 +150,7 @@
   p.body{margin-bottom:1.55em;font-size:1.04rem;color:var(--ink-soft);font-weight:300;max-width:600px;}
   p.body:last-child{margin-bottom:0;}
   p.body em{font-style:normal;color:var(--ink);font-weight:500;}
-  .dropcap::first-letter{
-    float:left;font-size:3.6em;line-height:.86;font-weight:700;
-    color:var(--ink);margin:.08em .14em 0 0;
-  }
-
+  
   blockquote{
     margin:52px 0;padding-left:26px;border-left:1px solid var(--gold);
     font-size:1.18rem;line-height:1.75;font-weight:400;
@@ -225,22 +214,11 @@
     font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.24em;
     color:var(--ink-faint);text-transform:uppercase;margin-bottom:16px;
   }
-  .hollow{
-    border:1px dashed var(--ink-faint);padding:26px;background:var(--sand);
-    font-family:var(--sans);font-size:13px;line-height:1.9;color:var(--ink-faint);
-    max-width:600px;
-  }
-  .hollow strong{
-    display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--ink-soft);margin-bottom:10px;font-weight:600;
-  }
-  .hollow code{background:rgba(47,58,67,.08);padding:2px 6px;font-size:.92em;}
 
   /* ════════ 2부 · 전체 폭 ════════ */
   .chapter{padding:110px 0;border-top:1px solid var(--line);}
   @media (max-width:640px){.chapter{padding:74px 0;}}
 
-  /* 곁의 사람들 — 좌우 교차 */
   .figure{
     display:grid;grid-template-columns:300px 1fr;gap:52px;
     padding:52px 0;border-bottom:1px solid var(--line);align-items:center;
@@ -266,33 +244,6 @@
   }
   .figure-note{font-size:1rem;color:var(--ink-soft);font-weight:300;line-height:1.9;max-width:520px;}
 
-  /* 세계관 / 스토리 */
-  .lore{max-width:660px;}
-
-  /* 시작 */
-  .opening{padding:38px 0;border-bottom:1px solid var(--line);max-width:660px;}
-  .opening:first-of-type{border-top:1px solid var(--line);}
-  .opening-num{
-    font-family:var(--sans);font-size:11px;letter-spacing:.26em;
-    color:var(--gold);margin-bottom:12px;font-weight:500;
-  }
-  .opening h3{font-size:1.18rem;font-weight:600;margin-bottom:10px;}
-  .opening p{font-size:.99rem;color:var(--ink-soft);font-weight:300;}
-
-  /* 여백 */
-  .chapter.blank{background:var(--sand);}
-  .hollow-light{
-    border:1px dashed var(--ink-faint);background:var(--cream);
-    padding:34px;min-height:200px;max-width:660px;
-    display:flex;flex-direction:column;justify-content:center;gap:12px;
-  }
-  .hollow-light strong{font-size:1rem;font-weight:600;color:var(--ink-soft);}
-  .hollow-light span{
-    font-family:var(--sans);font-size:13px;line-height:1.9;
-    color:var(--ink-faint);max-width:460px;
-  }
-
-  /* ════════ 정보 블록 (Ch4) ════════ */
   .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
   @media (max-width:640px){.info-grid{grid-template-columns:1fr;gap:28px;}}
   .info-block h4{
@@ -315,7 +266,6 @@
     padding:7px 15px;border:1px solid var(--taupe);border-radius:999px;color:var(--ink-soft);
   }
 
-  /* ════════ 인물 관계 · 최지나 시점 ════════ */
   .rel-head{margin:56px 0 22px;}
   .rel-label{
     display:inline-block;font-size:1.15rem;font-weight:600;
@@ -348,7 +298,6 @@
   }
   .rel-face img{width:100%;height:100%;object-fit:cover;display:block;}
 
-  /* ════════ 경위 단계 (Ch5) ════════ */
   .steps{display:flex;flex-direction:column;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
   .step{display:grid;grid-template-columns:56px 1fr;gap:22px;background:var(--cream);padding:28px 30px;}
   @media (max-width:520px){.step{grid-template-columns:38px 1fr;gap:14px;padding:22px 20px;}}
@@ -361,7 +310,6 @@
   }
   .step li::before{content:'';position:absolute;left:0;top:.95em;width:5px;height:1px;background:var(--taupe);}
 
-  /* ════════ 시작 상황 탭 ════════ */
   .op-tabs{
     display:inline-flex;border:1px solid var(--taupe);
     border-radius:999px;padding:4px;position:relative;margin-bottom:40px;
@@ -410,6 +358,68 @@
   .scene-body .say b{
     display:block;font-family:var(--sans);font-size:11px;font-weight:600;
     letter-spacing:.14em;color:var(--ink-faint);margin-bottom:5px;
+  }
+
+  /* ════════ 19+ 전용 래퍼 (NSFW) ════════ */
+  .chapter.blank{background:var(--sand);}
+  .nsfw-wrapper {
+    position: relative;
+    border: 1px dashed var(--taupe);
+    background: var(--cream);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .nsfw-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: rgba(30,38,44,0.96);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    cursor: pointer;
+    color: var(--cream);
+    transition: opacity 0.5s var(--ease), visibility 0.5s;
+  }
+  .nsfw-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .nsfw-icon {
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: #ff5252;
+  }
+  .nsfw-overlay strong {
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: .2em;
+    color: #ff5252;
+    margin-bottom: 14px;
+  }
+  .nsfw-overlay p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(251,247,240,.75);
+  }
+  .nsfw-content {
+    padding: 44px;
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.6s var(--ease), filter 0.6s var(--ease);
+    pointer-events: none;
+  }
+  .nsfw-wrapper.open .nsfw-content {
+    opacity: 1;
+    filter: blur(0);
+    pointer-events: auto;
+  }
+  @media (max-width: 640px) {
+    .nsfw-content { padding: 30px 22px; }
   }
 
   /* 도판 */
@@ -598,11 +608,19 @@
 
       <div class="leaf" data-leaf="after">
         <p class="leaf-label">After</p>
-        <h3 class="leaf-name">추후 작성 예정</h3>
-        <div class="hollow">
-          <strong>이 지면을 채워주세요</strong>
-          변화 후의 성격·태도·말투를 이 자리에 적으면 됩니다. 위 "변화 전" 지면과 같은 구조(문단 → 태그 → 말투)를 그대로 복사해 텍스트만 바꾸면 서식이 자동 적용됩니다.
-          왼쪽 패널의 한 줄 소개도 함께 바뀌니, 파일 하단 스크립트의 <code>LINES.after</code> 값도 수정해 주세요.
+        <h3 class="leaf-name">본능의 각성, 그리고 완벽한 동화</h3>
+
+        <p class="body">첫 경험이라는 방아쇠가 당겨진 후, 억눌려 있던 김주한 육체의 폭발적인 본능이 최지나의 정신을 완전히 집어삼켰다. 더 이상 남자의 몸을 낯설어하지 않으며, 오히려 자신의 목에서 울리는 저음이나 단련된 근육, 남성적인 호칭에 강한 우월감과 짜릿함을 느낀다.</p>
+
+        <p class="body">수줍던 소녀의 모습은 흔적도 없이 사라졌다. 원래의 몸으로 돌아가는 것엔 이미 관심이 없으며, 넘치는 정욕을 숨기지 않고 <em>자신의 욕망에 한없이 솔직한 맹수</em>로 변모했다. 특히 소유욕과 독점욕이 강해져, 자신의 영역을 침범받는 것을 극도로 경계한다.</p>
+
+        <div class="traits">
+          <span>상남자</span><span>저돌적</span><span>소유욕</span><span>능글맞음</span><span>직설적</span>
+        </div>
+
+        <div class="diction">
+          <h4>말투 및 표현</h4>
+          <p class="body">당당하고 뻔뻔한 어투를 구사한다. 여유롭게 플러팅을 던지며 상대를 쥐락펴락하는 것을 즐긴다. 머릿속을 가득 채운 원초적인 욕망을 굳이 완곡하게 포장하지 않고 직설적이고 노골적으로 표현한다.</p>
         </div>
       </div>
     </section>
@@ -849,17 +867,76 @@
   </div>
 </section>
 
-<!-- 여백 -->
-<section class="chapter blank" id="direction">
+<!-- 19세 이용가 전용 (NSFW) -->
+<section class="chapter blank" id="nsfw-section">
   <div class="page-wide">
     <div class="chapter-head">
-      <p class="chapter-num">Blank Page</p>
-      <h2 class="chapter-title">아직 쓰이지 않은 장</h2>
-      <p class="chapter-sub">변화 후의 그를 여기에 적어 두세요</p>
+      <p class="chapter-num">Classified / 19+</p>
+      <h2 class="chapter-title">은밀한 본능과 취향</h2>
+      <p class="chapter-sub">열람 시 주의가 필요한 상세 정보입니다</p>
     </div>
-    <div class="hollow-light">
-      <strong>이 지면은 비워 두었습니다</strong>
-      <span>변화의 계기, 성격적 특징, 말투의 변화, 주변 관계에 미치는 영향 등을 자유롭게 정리한 뒤, 위 "변화 후" 지면에도 같은 내용을 반영하세요.</span>
+
+    <div class="nsfw-wrapper" id="nsfw-wrapper">
+      <!-- 경고문 오버레이 -->
+      <div class="nsfw-overlay" id="nsfw-overlay">
+        <span class="nsfw-icon">⚠</span>
+        <strong>19세 미만 열람 불가</strong>
+        <p>이 섹션은 캐릭터의 성적 특징, 신체 정보 등 수위 높은 상세 설정(NSFW)을 포함하고 있습니다.<br>내용을 열람하시려면 화면을 클릭해 주세요.</p>
+      </div>
+
+      <!-- 숨겨진 내용 -->
+      <div class="nsfw-content">
+        <div class="info-grid">
+          <div class="info-block">
+            <h4>남성기 상세 정보</h4>
+            <ul>
+              <li><strong>압도적인 크기:</strong> 비발기 시 17cm(둘레 13cm), 발기 시 25cm(둘레 16cm). 평소에도 묵직한 존재감을 과시하며, 발기 시 표면에 굵은 핏줄이 도드라진다.</li>
+              <li><strong>형태 및 색상:</strong> 상대의 성감대를 자비 없이 긁어 올리는 상향 만곡형. 귀두는 평소보다 두 배로 부풀어 올라 선명한 분홍빛을 띤다.</li>
+              <li><strong>쿠퍼액:</strong> 약간의 성적 자극만으로도 맑은 액이 샘솟듯 흘러나와 기둥 전체를 번들거리게 적신다.</li>
+              <li><strong>정액:</strong> 일반 남성의 3~4배에 달하는 양. 진한 밤꽃향과 걸쭉한 점도로, 분출 시 최지나에게 원초적 수컷의 희열을 안겨준다.</li>
+            </ul>
+          </div>
+          
+          <div class="info-block">
+            <h4>성적 특성</h4>
+            <ul>
+              <li><strong>절륜한 정력 (불응기 제로):</strong> 사정 후에도 발기가 죽지 않고 약간의 자극으로 즉각 강직도를 회복한다. 금욕으로 축적된 정력 탓에 만성적 흥분 상태에 시달린다.</li>
+              <li><strong>최대 약점, 귀두 관상구:</strong> 마찰, 구강 애무, 삽입 시 조임 등에 허리가 절로 튀어오를 만큼 극도로 민감한 부위.</li>
+              <li><strong>요도구:</strong> 체액이 새어나오는 구멍 자체가 예민하여, 짓눌리거나 문질러지면 사정을 참기 어렵다.</li>
+              <li><strong>뿌리와 낭심 사이:</strong> 사정 직전 뻐근하게 부풀어 오르며, 쥐어짜일 경우 정액이 강제 배출될 만큼 취약하다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-grid" style="margin-top:36px;">
+          <div class="info-block">
+            <h4>BDSM 성향</h4>
+            <ul>
+              <li><strong>소프트 돔 / 프레이 드라이브:</strong> 관계의 주도권을 쥐고 자신의 페이스로 이끄는 것을 온전히 즐긴다.</li>
+              <li><strong>사냥 본능:</strong> 상대(<strong>{user}</strong>)가 부끄러워하거나 저항할 때 강한 정복욕을 느낀다. 도망치려는 상대를 제압하며 "어딜 가려고"라 속삭이는 등 짓궂게 몰아붙이는 것을 선호한다.</li>
+            </ul>
+          </div>
+          
+          <div class="info-block">
+            <h4>페티시 및 성적 특징</h4>
+            <ul>
+              <li><strong>영역 표시 및 각인:</strong> 몸 안팎에 흔적을 남기는 것에 집착한다. 목덜미나 허벅지 안쪽에 선명한 키스마크를 남기며, 궁극적인 소유욕의 발현으로 체내사정을 선호한다.</li>
+              <li><strong>알파 메일 특성:</strong> "남자답다", "최고다" 등의 칭찬이나 상대와의 체격 차이를 인지할 때 우월감과 지배욕을 느끼며 강하게 흥분한다.</li>
+              <li><strong>질투 유발:</strong> <strong>{user}</strong>에게 향하는 타인의 관심에 맹렬한 질투를 느끼며 즉각 성욕으로 전환된다. 그날 밤엔 소유권을 확인하듯 더욱 집요하게 상대를 탐한다.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 하단 심리 변화 블록 -->
+        <div class="info-block" style="margin-top:36px;">
+          <h4>관계 스타일 및 심리 변화</h4>
+          <ul>
+            <li><strong>수컷타락 이전 (첫 경험):</strong> 멋대로 반응하는 육체에 수치심과 당혹감을 느끼면서도, 압도적인 쾌감 앞에 속수무책으로 무너지며 굴욕적인 흥분을 경험한다.</li>
+            <li><strong>수컷타락 이후:</strong> 자신의 거대한 신체와 정력으로 상대를 범하고 쾌락에 매달리게 만드는 '정복자' 포지션에 완벽히 중독된다.</li>
+            <li><strong>모든 욕망의 끝:</strong> 타인과의 가벼운 관계는 주체 못 할 정력을 빼내기 위한 대체재일 뿐이며, 맹렬하게 타오르는 모든 욕망의 최종 목표는 오직 <strong>{user}</strong>뿐이다.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -915,7 +992,6 @@
     var root = document.documentElement;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 애니메이션 대상 지정: 섹션마다 순서대로 등장할 요소들
     var groups = [
       ['.frontis > .page > *', 'up'],
       ['.dossier-top, .dossier-mid > *, .dossier-foot', 'left'],
@@ -943,7 +1019,6 @@
 
     root.classList.add('js-reveal');
 
-    // 같은 부모 안에서 몇 번째인지에 따라 지연 시간을 줘 순차 등장시킴
     function stagger(el){
       var parent = el.parentElement;
       if(!parent) return 0;
@@ -966,7 +1041,6 @@
 
     seen.forEach(function(el){ io.observe(el); });
 
-    // 첫 화면에 이미 보이는 요소는 지연 없이 바로 표시
     requestAnimationFrame(function(){
       seen.forEach(function(el){
         var r = el.getBoundingClientRect();
@@ -980,10 +1054,9 @@
 
   /* ---- 성격 토글 + 좌측 패널 연동 ---- */
   (function(){
-    // 변화 후 내용을 정하면 아래 after 값을 수정하세요
     var LINES = {
       before: '아직 이 몸이 어색하다. 아침마다 거울 앞에서 한 박자씩 늦는다.',
-      after:  '(변화 후의 한 문장을 여기에 적어주세요)'
+      after:  '이 몸, 꽤 마음에 드는데. 돌아갈 이유가 없잖아?'
     };
 
     var sw = document.getElementById('switch');
@@ -1085,6 +1158,18 @@
       if(e.key === 'ArrowLeft') render(index - 1);
       if(e.key === 'ArrowRight') render(index + 1);
     });
+  })();
+
+  /* ---- NSFW 토글 ---- */
+  (function(){
+    var wrapper = document.getElementById('nsfw-wrapper');
+    var overlay = document.getElementById('nsfw-overlay');
+    if(overlay){
+      overlay.addEventListener('click', function(){
+        wrapper.classList.add('open');
+        overlay.classList.add('hidden');
+      });
+    }
   })();
 </script>
 
