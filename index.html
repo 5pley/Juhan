@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -97,14 +96,22 @@
     padding:34px 0;min-height:0;
   }
   .dossier-portrait{
+    position:relative;
     flex:1;min-height:150px;max-height:330px;
-    border:1px dashed rgba(251,247,240,.26);
+    border:1px solid rgba(251,247,240,.18);
     background:rgba(251,247,240,.03);
     display:flex;align-items:center;justify-content:center;text-align:center;
     font-family:var(--sans);font-size:11px;color:rgba(251,247,240,.38);
-    line-height:1.9;padding:20px;margin-bottom:30px;overflow:hidden;
+    line-height:1.9;margin-bottom:30px;overflow:hidden;
   }
-  .dossier-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  .dossier-portrait img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;display:block;
+    transition:opacity .7s var(--ease);
+  }
+  .dossier-portrait .p-after{opacity:0;}
+  .dossier.after .dossier-portrait .p-before{opacity:0;}
+  .dossier.after .dossier-portrait .p-after{opacity:1;}
   @media (max-width:960px){
     .dossier-portrait{aspect-ratio:4/3;max-height:none;min-height:210px;}
   }
@@ -582,10 +589,29 @@
   .slot:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(47,58,67,.13);}
   .slot:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
   .slot-19{
-    position:absolute;top:7px;right:7px;z-index:2;
+    position:absolute;top:7px;right:7px;z-index:3;
     font-family:var(--sans);font-size:9px;font-weight:600;letter-spacing:.1em;
     color:var(--cream);background:rgba(30,38,44,.82);
     padding:3px 7px;border-radius:999px;line-height:1.4;
+  }
+
+  /* 19+ 도판: 평소엔 블러, 커서를 올리면 해제 (확대 화면에서는 원본 그대로) */
+  .slot:has(.slot-19) img{
+    filter:blur(16px);transform:scale(1.12);
+    transition:filter .45s var(--ease), transform .45s var(--ease);
+  }
+  .slot:has(.slot-19)::before{
+    content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:rgba(251,247,240,.3);
+    transition:opacity .45s var(--ease);
+  }
+  .slot:has(.slot-19):hover img,
+  .slot:has(.slot-19):focus-visible img{filter:none;transform:none;}
+  .slot:has(.slot-19):hover::before,
+  .slot:has(.slot-19):focus-visible::before{opacity:0;}
+  @media (prefers-reduced-motion: reduce){
+    .slot:has(.slot-19) img,
+    .slot:has(.slot-19)::before{transition:none;}
   }
   .slot::after{content:'';position:absolute;inset:0;background:rgba(47,58,67,0);transition:background .3s var(--ease);}
   .slot:hover::after{background:rgba(47,58,67,.08);}
@@ -668,9 +694,9 @@
 
     <div class="dossier-mid">
       <div class="dossier-portrait">
-        <!-- IMAGE: 김주한(최지나) 대표 이미지 -->
-        <!-- <img src="assets/images/juhan.jpg" alt="김주한"> -->
-        대표 이미지 자리<br>assets/images/ 에 업로드 후<br>&lt;img&gt; 태그로 교체
+        <!-- IMAGE: 김주한(최지나) 대표 이미지 · 변화 전 / 변화 후 -->
+        <img class="p-before" src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/KJH1.webp" alt="김주한 — 변화 전">
+        <img class="p-after" src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/KJH2.webp" alt="김주한 — 변화 후" loading="lazy">
       </div>
       <h2 class="dossier-name">김주한</h2>
       <p class="dossier-alias">이름은 김주한, 안에 있는 사람은 최지나</p>
@@ -814,7 +840,7 @@
     </div>
 
     <div class="figure">
-      <div class="figure-plate"><!-- IMAGE: 최지나(김주한) --></div>
+      <div class="figure-plate"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/CJN.webp" alt="최지나(김주한)" loading="lazy"></div>
       <div>
         <h3 class="figure-name">최지나 <small>안쪽은 김주한</small></h3>
         <p class="figure-meta">21세 · 161cm · 3월 14일 · 공연예술학과 2학년 · ESFP / INTP</p>
@@ -823,7 +849,7 @@
     </div>
 
     <div class="figure flip">
-      <div class="figure-plate"><!-- IMAGE: 최재현(정유나) --></div>
+      <div class="figure-plate"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/CJH.webp" alt="최재현(정유나)" loading="lazy"></div>
       <div>
         <h3 class="figure-name">최재현 <small>안쪽은 정유나</small></h3>
         <p class="figure-meta">22세 · 187cm · 5월 18일 · 경영학과 3학년 · INTJ / ENFJ</p>
@@ -832,7 +858,7 @@
     </div>
 
     <div class="figure">
-      <div class="figure-plate"><!-- IMAGE: 정유나(최재현) --></div>
+      <div class="figure-plate"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/JYN.webp" alt="정유나(최재현)" loading="lazy"></div>
       <div>
         <h3 class="figure-name">정유나 <small>안쪽은 최재현</small></h3>
         <p class="figure-meta">22세 · 165cm · 4월 12일 · 시각디자인과 3학년 · ENFJ / INTJ</p>
@@ -841,7 +867,7 @@
     </div>
 
     <div class="figure flip">
-      <div class="figure-plate"><!-- IMAGE: 주일훈 --></div>
+      <div class="figure-plate"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/JIH.webp" alt="주일훈" loading="lazy"></div>
       <div>
         <h3 class="figure-name">주일훈 <small>바뀌지 않은 사람</small></h3>
         <p class="figure-meta">22세 · 184cm · 5월 26일 · 사회복지학과 3학년 · INFJ</p>
@@ -897,7 +923,7 @@
           <p class="rel-who"><b>김주한이란:</b> 지금 내가 쓰고 있는 몸. 같은 학교 선배.</p>
           <p class="rel-say">"내가 왜 하필 김주한 선배가 된 거야…?! 팔도 다리도 너무 길고, 목소리는… 으으, 이거 진짜 내가 낸 소리 맞아?"</p>
         </div>
-        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+        <div class="rel-face"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/KJH13.webp" alt="김주한을 떠올릴 때" loading="lazy"></div>
       </div>
 
       <div class="rel">
@@ -905,7 +931,7 @@
           <p class="rel-who"><b>당신이란:</b> 김주한의 오랜 남사친. 같은 학과.</p>
           <p class="rel-say">"선배랑 제일 친한 여사친… 이었지? 어떡해, 이러다 제일 먼저 들키는 거 아니야…? 근데 왜 자꾸, 눈이 가는 걸까."</p>
         </div>
-        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+        <div class="rel-face"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/KJH11.webp" alt="당신을 떠올릴 때" loading="lazy"></div>
       </div>
 
       <div class="rel">
@@ -913,7 +939,7 @@
           <p class="rel-who"><b>주일훈이란:</b> 봉사 동아리 선배. 오래 마음에 두었던 사람.</p>
           <p class="rel-say">"선배… 저 좋아한다는 말, 아직 못 했는데. 이 얼굴로는 이제 영영 못 하는 거겠죠…"</p>
         </div>
-        <div class="rel-face"><!-- IMAGE: 반응 이미지 --></div>
+        <div class="rel-face"><img src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/KJH7.webp" alt="주일훈을 떠올릴 때" loading="lazy"></div>
       </div>
       
     </div>
@@ -1254,6 +1280,8 @@
       <code>&lt;img src="assets/images/파일명.jpg" alt="설명"&gt;</code> 를 넣어주세요.
       확대했을 때 나오는 문구는 각 <code>.slot</code> 의 <code>data-title</code>(작은 제목)과
       <code>data-caption</code>(설명)을 수정하면 됩니다. 현재 40칸이며, 칸을 늘리거나 줄이려면 <code>.slot</code> div 를 복사하거나 지우면 되고, 정렬은 자동으로 맞춰집니다.
+      <br>19+ 표시가 필요한 칸에는 <code>&lt;span class="slot-19"&gt;19+&lt;/span&gt;</code> 를 넣어주세요.
+      해당 칸은 목록에서 자동으로 흐리게 처리되고, 커서를 올리거나 눌러서 확대하면 원본이 보입니다.
     </p>
   </div>
 </section>
@@ -1525,4 +1553,5 @@
 
 </body>
 </html>
+
 
