@@ -623,6 +623,41 @@
   .note code{background:rgba(47,58,67,.08);padding:2px 6px;font-size:.92em;}
 
   /* 라이트박스 */
+  /* ════════ BGM ════════ */
+  .bgm{
+    position:fixed;right:22px;bottom:22px;z-index:60;
+    display:inline-flex;align-items:center;gap:11px;
+    padding:11px 19px 11px 16px;border-radius:999px;
+    border:1px solid rgba(251,247,240,.18);
+    background:rgba(30,38,44,.9);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    color:var(--cream);cursor:pointer;
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;
+    box-shadow:0 8px 26px rgba(30,38,44,.24);
+    transition:background .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
+  }
+  .bgm:hover{background:var(--ink);border-color:rgba(217,198,160,.5);transform:translateY(-2px);}
+  .bgm:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+  .bgm-eq{display:flex;align-items:flex-end;gap:2px;width:15px;height:13px;}
+  .bgm-eq i{
+    flex:1;height:3px;border-radius:1px;
+    background:rgba(217,198,160,.55);
+    transition:height .3s var(--ease),background .3s var(--ease);
+  }
+  .bgm[aria-pressed="true"] .bgm-eq i{
+    background:var(--gold);animation:eq .95s ease-in-out infinite;
+  }
+  .bgm[aria-pressed="true"] .bgm-eq i:nth-child(2){animation-delay:.16s;}
+  .bgm[aria-pressed="true"] .bgm-eq i:nth-child(3){animation-delay:.32s;}
+  @keyframes eq{0%,100%{height:3px;}50%{height:13px;}}
+  @media (max-width:640px){
+    .bgm{right:14px;bottom:14px;padding:10px 16px 10px 13px;font-size:10.5px;letter-spacing:.12em;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .bgm-eq i{animation:none !important;}
+    .bgm:hover{transform:none;}
+  }
+
   .lightbox{
     position:fixed;inset:0;z-index:100;background:rgba(30,38,44,.94);
     display:none;align-items:center;justify-content:center;padding:48px 28px;
@@ -1276,6 +1311,14 @@
 
 <footer>교체대학교 · Kim Juhan</footer>
 
+<!-- BGM -->
+<audio id="bgm-before" src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/Juhan_main.mp3" loop preload="none"></audio>
+<audio id="bgm-after" src="https://raw.githubusercontent.com/5pley/Juhan/refs/heads/main/Juhan_main2.mp3" loop preload="none"></audio>
+<button class="bgm" id="bgm-toggle" type="button" aria-pressed="false" aria-label="배경음악 재생">
+  <span class="bgm-eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span>BGM</span>
+</button>
+
 <!-- 라이트박스 -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 확대 보기">
   <button class="lightbox-close" id="lb-close" type="button">닫기 ✕</button>
@@ -1396,6 +1439,7 @@
       });
 
       dossier.classList.toggle('after', t === 'after');
+      document.dispatchEvent(new CustomEvent('statechange', { detail: t }));
 
       if(hint) hint.classList.toggle('after', t === 'after');
       if(now)  now.textContent = (t === 'after' ? '변화 후' : '변화 전');
@@ -1537,7 +1581,60 @@
     });
     if(hideBtn) hideBtn.addEventListener('click', seal);
   })();
+
+  /* ---- BGM (변화 전/후 트랙 전환) ---- */
+  (function(){
+    var btn = document.getElementById('bgm-toggle');
+    var tracks = {
+      before: document.getElementById('bgm-before'),
+      after:  document.getElementById('bgm-after')
+    };
+    if(!btn || !tracks.before || !tracks.after) return;
+
+    var cur = 'before';
+    var playing = false;
+
+    Object.keys(tracks).forEach(function(k){
+      tracks[k].volume = 0.45;
+      tracks[k].loop = true;
+    });
+
+    function mark(on){
+      playing = on;
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', on ? '배경음악 정지' : '배경음악 재생');
+    }
+
+    function start(){
+      var p = tracks[cur].play();
+      // 브라우저가 재생을 막으면 버튼 상태를 되돌린다
+      if(p && p.catch) p.catch(function(){ mark(false); });
+    }
+
+    btn.addEventListener('click', function(){
+      if(playing){
+        tracks[cur].pause();
+        mark(false);
+      } else {
+        mark(true);
+        start();
+      }
+    });
+
+    // 변화 전/후 전환 시 트랙 교체
+    document.addEventListener('statechange', function(e){
+      var t = e.detail;
+      if(t === cur) return;
+      tracks[cur].pause();
+      tracks[cur].currentTime = 0;
+      cur = t;
+      if(playing) start();
+    });
+  })();
+
 </script>
 
 </body>
 </html>
+
+
