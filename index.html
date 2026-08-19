@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>김주한(최지나): 남자의 맛을 깨닫고 사랑해버렸다</title>
+<title>김주한(최지나): 남자의 맛을 깨닫고 수컷타락해버렸다</title>
 <meta name="description" content="영혼이 뒤바뀐 뒤, 최지나는 김주한의 몸으로 살아간다. 로맨스 · 현대 판타지 · 캠퍼스물 · 영혼 체인지.">
-<meta property="og:title" content="김주한(최지나): 남자의 맛을 깨닫고 사랑해버렸다">
+<meta property="og:title" content="김주한(최지나): 남자의 맛을 깨닫고 수컷타락해버렸다">
 <meta property="og:description" content="영혼이 뒤바뀐 뒤, 최지나는 김주한의 몸으로 살아간다. 로맨스 · 현대 판타지 · 캠퍼스물 · 영혼 체인지.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -360,40 +360,43 @@
     letter-spacing:.14em;color:var(--ink-faint);margin-bottom:5px;
   }
 
-  /* ════════ 19+ 전용 래퍼 (NSFW) ════════ */
+  /* ════════ 19+ 전용 래퍼 (NSFW - 아코디언 스타일) ════════ */
   .chapter.blank{background:var(--sand);}
   .nsfw-wrapper {
-    position: relative;
     border: 1px dashed var(--taupe);
     background: var(--cream);
     border-radius: 6px;
     overflow: hidden;
+    margin-top: 20px;
   }
+  
+  /* 닫혀 있을 때 보이는 경고문 (클릭 영역) */
   .nsfw-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
     background: rgba(30,38,44,0.96);
+    padding: 56px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 30px;
     cursor: pointer;
     color: var(--cream);
-    transition: opacity 0.5s var(--ease), visibility 0.5s;
+    transition: background .35s var(--ease);
+  }
+  .nsfw-overlay:hover {
+    background: var(--ink);
   }
   .nsfw-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
+    display: none; /* 클릭 후 경고문 영역 완전 제거 */
   }
+  
   .nsfw-icon {
-    font-size: 22px;
-    margin-bottom: 12px;
+    font-size: 26px;
+    margin-bottom: 16px;
     color: #ff5252;
   }
   .nsfw-overlay strong {
+    display: block;
     font-family: var(--sans);
     font-size: 13px;
     letter-spacing: .2em;
@@ -406,20 +409,19 @@
     line-height: 1.8;
     color: rgba(251,247,240,.75);
   }
+  
+  /* 접혀 있다가 등장하는 상세 내용 */
   .nsfw-content {
-    padding: 44px;
-    opacity: 0;
-    filter: blur(10px);
-    transition: opacity 0.6s var(--ease), filter 0.6s var(--ease);
-    pointer-events: none;
+    display: none; /* 평소에는 아예 접혀 있음 */
+    padding: 56px 44px;
+    animation: leafIn .6s var(--ease); /* 부드럽게 밀려 내려오며 등장 */
   }
   .nsfw-wrapper.open .nsfw-content {
-    opacity: 1;
-    filter: blur(0);
-    pointer-events: auto;
+    display: block;
   }
   @media (max-width: 640px) {
-    .nsfw-content { padding: 30px 22px; }
+    .nsfw-overlay { padding: 40px 22px; }
+    .nsfw-content { padding: 40px 22px; }
   }
 
   /* 도판 */
@@ -867,7 +869,7 @@
   </div>
 </section>
 
-<!-- 19세 이용가 전용 (NSFW) -->
+<!-- 19세 이용가 전용 (NSFW - 아코디언 방식) -->
 <section class="chapter blank" id="nsfw-section">
   <div class="page-wide">
     <div class="chapter-head">
@@ -877,14 +879,14 @@
     </div>
 
     <div class="nsfw-wrapper" id="nsfw-wrapper">
-      <!-- 경고문 오버레이 -->
+      <!-- 닫혀 있을 때 보이는 경고문 래퍼 -->
       <div class="nsfw-overlay" id="nsfw-overlay">
         <span class="nsfw-icon">⚠</span>
         <strong>19세 미만 열람 불가</strong>
         <p>이 섹션은 캐릭터의 성적 특징, 신체 정보 등 수위 높은 상세 설정(NSFW)을 포함하고 있습니다.<br>내용을 열람하시려면 화면을 클릭해 주세요.</p>
       </div>
 
-      <!-- 숨겨진 내용 -->
+      <!-- 클릭 시 펼쳐지며 등장하는 숨겨진 내용 -->
       <div class="nsfw-content">
         <div class="info-grid">
           <div class="info-block">
@@ -1175,3 +1177,4 @@
 
 </body>
 </html>
+
