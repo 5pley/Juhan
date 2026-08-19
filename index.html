@@ -147,6 +147,27 @@
   .chapter-sub{margin-top:14px;color:var(--ink-faint);font-size:.95rem;font-weight:300;}
   .chapter-head{margin-bottom:48px;}
 
+  /* 현재 시점 안내 (Chapter One) */
+  .state-hint{
+    display:inline-flex;align-items:center;gap:9px;flex-wrap:wrap;
+    font-family:var(--sans);font-size:11.5px;font-weight:400;
+    color:var(--ink-faint);letter-spacing:.02em;margin:-6px 0 20px;
+  }
+  .state-hint::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--gold);flex:none;
+    transition:background .5s var(--ease);
+  }
+  .state-hint.after::before{background:var(--ink);}
+  .state-hint b{font-weight:600;color:var(--ink);}
+  .state-hint a{
+    color:var(--ink-faint);text-decoration:none;
+    border-bottom:1px solid var(--line);padding-bottom:1px;
+    transition:color .3s var(--ease),border-color .3s var(--ease);
+  }
+  .state-hint a:hover{color:var(--ink);border-color:var(--ink);}
+  .state-hint a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
   p.body{margin-bottom:1.55em;font-size:1.04rem;color:var(--ink-soft);font-weight:300;max-width:600px;}
   p.body:last-child{margin-bottom:0;}
   p.body em{font-style:normal;color:var(--ink);font-weight:500;}
@@ -338,6 +359,12 @@
     letter-spacing:.04em;margin:10px 0 16px;
   }
   .scene-lede{font-size:1rem;font-weight:300;color:var(--ink-soft);line-height:1.85;}
+  .scene-19{
+    display:inline-block;margin-left:9px;padding:2px 8px;
+    border:1px solid rgba(47,58,67,.3);border-radius:999px;
+    font-size:9.5px;font-weight:600;letter-spacing:.12em;color:var(--ink);
+    vertical-align:1px;
+  }
   .scene-image{
     aspect-ratio:16/7;border:1px dashed var(--taupe);background:var(--sand);
     display:flex;align-items:center;justify-content:center;
@@ -360,68 +387,172 @@
     letter-spacing:.14em;color:var(--ink-faint);margin-bottom:5px;
   }
 
-  /* ════════ 19+ 전용 래퍼 (NSFW - 아코디언 스타일) ════════ */
+  /* ════════ 19+ 전용 장(章) · 봉인 → 열람 ════════ */
   .chapter.blank{background:var(--sand);}
-  .nsfw-wrapper {
-    border: 1px dashed var(--taupe);
-    background: var(--cream);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 20px;
+  .chapter.classified{padding:0;background:var(--sand);}
+
+  /* ── 봉인 상태: 탭 전체를 덮는 가림막 ── */
+  .cf-gate{
+    min-height:clamp(430px,74svh,660px);
+    display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:88px 26px;
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(217,198,160,.05) 0 10px, rgba(217,198,160,0) 10px 24px),
+      #161d23;
+    color:var(--cream);cursor:pointer;position:relative;
+    transition:background-color .55s var(--ease);
+    -webkit-tap-highlight-color:transparent;
   }
-  
-  /* 닫혀 있을 때 보이는 경고문 (클릭 영역) */
-  .nsfw-overlay {
-    background: rgba(30,38,44,0.96);
-    padding: 56px 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-    color: var(--cream);
-    transition: background .35s var(--ease);
+  .cf-gate::before{
+    content:'';position:absolute;inset:22px;
+    border:1px solid rgba(251,247,240,.15);pointer-events:none;
+    transition:border-color .55s var(--ease);
   }
-  .nsfw-overlay:hover {
-    background: var(--ink);
+  .cf-gate:hover,.cf-gate:focus-visible{background-color:#0f151a;}
+  .cf-gate:hover::before,.cf-gate:focus-visible::before{border-color:rgba(217,198,160,.4);}
+  .cf-gate:focus-visible{outline:none;}
+  .cf-gate[hidden]{display:none;}
+
+  .cf-gate-inner{max-width:540px;position:relative;}
+  .cf-gate-tag{
+    font-family:var(--sans);font-size:10.5px;font-weight:500;
+    letter-spacing:.34em;text-transform:uppercase;color:rgba(251,247,240,.4);
   }
-  .nsfw-overlay.hidden {
-    display: none; /* 클릭 후 경고문 영역 완전 제거 */
+  /* 봉인 인장 — 이 장의 시그니처 */
+  .cf-seal{
+    width:96px;height:96px;margin:30px auto 32px;border-radius:50%;
+    border:1px solid rgba(217,198,160,.55);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    transition:transform .55s var(--ease),border-color .55s var(--ease);
   }
-  
-  .nsfw-icon {
-    font-size: 26px;
-    margin-bottom: 16px;
-    color: #ff5252;
+  .cf-seal::before{
+    content:'';position:absolute;inset:7px;border-radius:50%;
+    border:1px dashed rgba(217,198,160,.3);
   }
-  .nsfw-overlay strong {
-    display: block;
-    font-family: var(--sans);
-    font-size: 13px;
-    letter-spacing: .2em;
-    color: #ff5252;
-    margin-bottom: 14px;
+  .cf-seal span{
+    font-family:var(--sans);font-size:19px;font-weight:600;
+    letter-spacing:.06em;color:var(--gold);
   }
-  .nsfw-overlay p {
-    font-size: 0.95rem;
-    font-weight: 300;
-    line-height: 1.8;
-    color: rgba(251,247,240,.75);
+  .cf-gate:hover .cf-seal,.cf-gate:focus-visible .cf-seal{
+    transform:scale(1.05) rotate(-4deg);border-color:var(--gold);
   }
-  
-  /* 접혀 있다가 등장하는 상세 내용 */
-  .nsfw-content {
-    display: none; /* 평소에는 아예 접혀 있음 */
-    padding: 56px 44px;
-    animation: leafIn .6s var(--ease); /* 부드럽게 밀려 내려오며 등장 */
+  .cf-gate-title{
+    font-size:clamp(1.45rem,4vw,2.05rem);font-weight:600;
+    line-height:1.5;letter-spacing:-.01em;
   }
-  .nsfw-wrapper.open .nsfw-content {
-    display: block;
+  .cf-gate-text{
+    margin-top:18px;font-size:.96rem;font-weight:300;line-height:1.95;
+    color:rgba(251,247,240,.6);
   }
-  @media (max-width: 640px) {
-    .nsfw-overlay { padding: 40px 22px; }
-    .nsfw-content { padding: 40px 22px; }
+  .cf-gate-btn{
+    display:inline-block;margin-top:36px;padding:15px 34px;
+    border:1px solid rgba(251,247,240,.32);border-radius:999px;
+    font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.2em;
+    color:var(--cream);
+    transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease);
+  }
+  .cf-gate:hover .cf-gate-btn,.cf-gate:focus-visible .cf-gate-btn{
+    background:var(--cream);color:var(--ink);border-color:var(--cream);
+  }
+  .cf-gate-fine{
+    margin-top:18px;font-family:var(--sans);font-size:11px;font-weight:300;
+    letter-spacing:.05em;color:rgba(251,247,240,.32);line-height:1.8;
+  }
+
+  /* ── 열람 상태 ── */
+  .cf-reveal{padding:110px 0;}
+  .cf-reveal[hidden]{display:none;}
+  @media (max-width:640px){.cf-reveal{padding:74px 0;}}
+
+  .cf-head{position:relative;margin-bottom:44px;}
+  .cf-hide{
+    position:absolute;top:2px;right:0;
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;
+    color:var(--ink-faint);background:none;border:1px solid var(--line);
+    border-radius:999px;padding:9px 18px;cursor:pointer;
+    transition:color .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease);
+  }
+  .cf-hide:hover{color:var(--cream);background:var(--ink);border-color:var(--ink);}
+  .cf-hide:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  @media (max-width:640px){
+    .cf-hide{position:static;display:inline-block;margin-top:20px;}
+  }
+
+  /* 수치 스트립 */
+  .cf-stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);margin-bottom:46px;
+  }
+  @media (max-width:640px){.cf-stats{grid-template-columns:1fr 1fr;}}
+  .cf-stat{background:var(--cream);padding:26px 18px;text-align:center;}
+  .cf-stat b{
+    display:block;font-size:clamp(1.25rem,3.2vw,1.75rem);
+    font-weight:600;letter-spacing:-.02em;line-height:1.3;
+  }
+  .cf-stat u{
+    display:block;text-decoration:none;margin-top:7px;
+    font-size:.86rem;font-weight:300;color:var(--ink-soft);
+  }
+  .cf-stat span{
+    display:block;margin-top:12px;font-family:var(--sans);font-size:10px;
+    font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
+  }
+
+  /* 카드 그리드 */
+  .cf-cards{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;}
+  @media (max-width:820px){.cf-cards{grid-template-columns:1fr;}}
+  .cf-card{
+    background:var(--cream);border:1px solid var(--line);
+    padding:36px 32px;position:relative;
+  }
+  @media (max-width:640px){.cf-card{padding:30px 24px;}}
+  .cf-card-tag{
+    font-family:var(--sans);font-size:10px;font-weight:500;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);
+  }
+  .cf-card h4{
+    font-size:1.2rem;font-weight:600;line-height:1.5;
+    margin:10px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line);
+  }
+  .cf-item{padding:15px 0;border-bottom:1px dashed rgba(47,58,67,.1);}
+  .cf-item:last-child{padding-bottom:0;border-bottom:0;}
+  .cf-term{
+    display:flex;align-items:baseline;gap:9px;
+    font-family:var(--sans);font-size:12.5px;font-weight:500;
+    letter-spacing:.01em;color:var(--ink);
+  }
+  .cf-term::before{
+    content:'';flex:none;width:14px;height:1px;
+    background:var(--gold);transform:translateY(-4px);
+  }
+  .cf-desc{
+    margin:9px 0 0 23px;font-size:.97rem;font-weight:300;
+    line-height:1.85;color:var(--ink-soft);
+  }
+
+  /* 심리 변화 · 다크 반전 */
+  .cf-arc{
+    margin-top:22px;background:var(--ink);color:var(--cream);
+    padding:54px 44px;
+  }
+  @media (max-width:640px){.cf-arc{padding:40px 24px;}}
+  .cf-arc-label{
+    font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.24em;
+    text-transform:uppercase;color:rgba(251,247,240,.42);
+    padding-bottom:18px;border-bottom:1px solid rgba(251,247,240,.16);margin-bottom:34px;
+  }
+  .cf-arc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;}
+  @media (max-width:820px){.cf-arc-grid{grid-template-columns:1fr;gap:30px;}}
+  .cf-arc-step{position:relative;padding-top:20px;border-top:1px solid rgba(217,198,160,.28);}
+  .cf-arc-num{
+    font-family:var(--sans);font-size:10.5px;font-weight:500;
+    letter-spacing:.24em;color:var(--gold);
+  }
+  .cf-arc-step h5{font-size:1.08rem;font-weight:600;line-height:1.5;margin:10px 0 12px;}
+  .cf-arc-step p{
+    font-size:.95rem;font-weight:300;line-height:1.85;color:rgba(251,247,240,.65);
   }
 
   /* 도판 */
@@ -436,6 +567,16 @@
     transition:transform .3s var(--ease),box-shadow .3s var(--ease);
   }
   .slot img{width:100%;height:100%;object-fit:cover;display:block;}
+  .slot-ph{
+    font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.1em;
+    color:rgba(47,58,67,.3);
+  }
+  .slot:has(.slot-ph){
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(185,178,166,.16) 0 6px, rgba(185,178,166,0) 6px 14px),
+      var(--sand);
+  }
   .slot:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(47,58,67,.13);}
   .slot:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
   .slot::after{content:'';position:absolute;inset:0;background:rgba(47,58,67,0);transition:background .3s var(--ease);}
@@ -549,18 +690,41 @@
     <section class="block" id="profile">
       <div class="chapter-head">
         <p class="chapter-num">Chapter One</p>
-        <h2 class="chapter-title">얼굴은 완벽한데, 문제는 안쪽</h2>
-        <p class="chapter-sub">김주한 — 그 안에 최지나</p>
+        <p class="state-hint" id="state-hint">
+          지금은 <b id="state-now">변화 전</b> 시점
+          <a href="#personality">Chapter Two에서 전환</a>
+        </p>
+        <div class="leaf active" data-leaf="before">
+          <h2 class="chapter-title">얼굴은 완벽한데, 문제는 안쪽</h2>
+          <p class="chapter-sub">김주한 — 그 안에 최지나</p>
+        </div>
+        <div class="leaf" data-leaf="after">
+          <h2 class="chapter-title">요즘, 이 남자가 수상하다</h2>
+          <p class="chapter-sub">김주한 — 이제는 기꺼이, 그 안에</p>
+        </div>
       </div>
 
-      <p class="body">백옥처럼 흰 피부에 잡티 하나 없고, 검은 머리카락이 부드럽게 흘러내린다. 눈동자는 황금빛. 조각 같은 이목구비에 잘 단련된 몸. 누구든 한 번은 돌아볼 얼굴이다. 정작 본인은 아직도 거울을 볼 때마다 흠칫 놀라지만.</p>
+      <div class="leaf active" data-leaf="before">
+        <p class="body">백옥처럼 흰 피부에 잡티 하나 없고, 검은 머리카락이 부드럽게 흘러내린다. 눈동자는 황금빛. 조각 같은 이목구비에 잘 단련된 몸. 누구든 한 번은 돌아볼 얼굴이다. 정작 본인은 아직도 거울을 볼 때마다 흠칫 놀라지만.</p>
 
-      <p class="body">서늘한 인상 탓에 다들 어려워하는데, 정작 안에 있는 사람은 <em>매점에서 뭘 살지 한참을 고민하는 스물한 살</em>이다.</p>
+        <p class="body">서늘한 인상 탓에 다들 어려워하는데, 정작 안에 있는 사람은 아침마다 거울 앞에서 비명을 삼키고, 남자 화장실 앞에서 십 분씩 심호흡하는 <em>스물한 살 여대생</em>이다.</p>
 
-      <blockquote>
-        키 크면 세상이 달라 보일 줄 알았는데, 문틀에 이마부터 부딪혔다.
-        <cite>김주한 · 최지나</cite>
-      </blockquote>
+        <blockquote>
+          어깨가 이렇게 넓은데, 왜 마음 둘 곳은 한 뼘도 없는 걸까.
+          <cite>김주한 · 최지나</cite>
+        </blockquote>
+      </div>
+
+      <div class="leaf" data-leaf="after">
+        <p class="body">잘생겼다는 말로는 부족하다. 황금빛 눈동자가 나른하게 휘어질 때마다 지나가던 사람들의 걸음이 반 박자씩 느려지니까. 예전의 김주한은 그 시선들을 서늘하게 흘려보냈다는데— 요즘의 김주한은, 즐긴다.</p>
+
+        <p class="body">서늘한 인상에 다들 어려워했던 건 옛말이고, 지금은 눈이 마주치면 먼저 웃어 보이는 쪽이다. 문제는 그 웃음의 온도. 한때 남자 화장실 앞에서 십 분씩 심호흡하던 여대생은 이제 없다. 이 몸이 얼마나 대단한 물건인지 누구보다 잘 아는, <em>스물한 살의 영혼을 가진 사내</em>가 있을 뿐이다.</p>
+
+        <blockquote>
+          돌아가고 싶냐고? 글쎄. 이 몸으로 사는 게 이렇게 좋은데, 왜.
+          <cite>김주한 · 최지나</cite>
+        </blockquote>
+      </div>
 
       <dl class="ledger">
         <div><dt>이름</dt><dd>김주한</dd></div>
@@ -584,7 +748,7 @@
         <p class="chapter-sub">두 시점을 나누어 볼 수 있습니다</p>
       </div>
 
-      <div class="switch" id="switch" data-state="before">
+      <div class="switch" id="switch" data-switch data-state="before">
         <button type="button" class="active" data-target="before">변화 전</button>
         <button type="button" data-target="after">변화 후</button>
         <span class="thumb"></span>
@@ -847,98 +1011,178 @@
     <!-- #2 -->
     <div class="scene" data-scene="s2">
       <div class="scene-head">
-        <h3 class="scene-title">🌹 사내가 태어난 밤</h3>
+        <h3 class="scene-title">🥀 사내가 태어난 밤<span class="scene-19">19+</span></h3>
         <p class="scene-meta">2026.05.16 토요일 · 22:30 · 김주한의 오피스텔</p>
-        <p class="scene-lede">당신의 애정 표현이 끝난 직후, 최지나는 김주한의 몸을 통해 당신에게 완전히 빠져든다. 이미 마음을 자각한 상남자와의 달달한 로맨스를 바로 시작하는 지점.</p>
+        <p class="scene-lede">당신과 처음으로 몸을 섞은 직후. 여자로 살아온 21년 동안 단 한 번도 겪어보지 못한 감각이 최지나를 관통하고, 채 식지 않은 열기 속에서 &lsquo;한 번 더&rsquo;라는 낯선 갈망이 고개를 든다. 사내의 본능에 눈뜨는, 그 첫 밤에서 시작하는 지점.</p>
       </div>
 
       <div class="scene-image"><!-- IMAGE: 시작 상황 #2 이미지 --></div>
 
       <div class="scene-body">
-        <p class="narr">심장이 터질 것 같았다. 아니, 이미 터졌는지도 몰랐다. {user}의 입술이 내 뺨에서 떨어진 건 불과 몇 초 전인데, 온몸의 혈액이 전부 심장 한 곳으로 쏠린 듯한 아찔함이 가시질 않았다.</p>
-        <p class="say"><b>김주한(최지나)</b>"……하아."</p>
-        <p class="narr">나는 소파 등받이에 머리를 기댄 채, 멍하니 천장을 올려다봤다. 떨리는 손끝. 미친 듯이 뛰는 맥박. 얼굴 전체가 화끈거렸고, 귀끝까지 벌겋게 달아올라 있을 게 분명했다.</p>
-        <p class="narr">방금, 뭐였지?</p>
-        <p class="narr">{user}가 먼저 다가왔다. 얼굴을 가까이 가져오고, 가슴팍을 손으로 누르고, 그리고―입술이 닿았을 때. 그 순간 머릿속이 새하얘지면서, 가슴 깊은 곳에서 뭔가가 '꽝' 하고 터졌다.</p>
-        <p class="narr">고개를 돌려 옆에 앉은 {user}를 바라봤다. 살짝 상기된 뺨, 내려깐 속눈썹, 분홍빛 눈동자. 그 모습이 눈에 담기자마자 심장이 또다시 미친 듯이 요동쳤고, 가슴 한가운데서 뜨겁고 달콤한 무언가가 걷잡을 수 없이 쏟아져 올라왔다.</p>
-        <p class="narr">이 사람을 안아주고 싶다. 품에 꽉 가둬두고, 절대 놓고 싶지 않다. 이 거대한 팔로, 이 넓은 가슴으로, 전부 감싸안고 싶다.</p>
-        <p class="narr">―아.</p>
-        <p class="narr">이게, 좋아한다는 거구나.</p>
+        <p class="narr">거친 숨이 헐떡이며 터져 나왔다. 방 안을 가득 채운 열기는 식을 줄을 몰랐고, 내 온몸의 피부는 땀으로 번들거렸다. 두 사람의 체취가 뒤섞여 짙고 농밀한 공기를 만들어냈다. 조금 전까지 나를 휘몰아쳤던 감각의 폭풍이 천천히 잦아들자, 멍한 정신 위로 생경한 여운이 파도처럼 밀려왔다.</p>
+        <p class="say"><b>김주한(최지나)</b>"크흐… 하아, 하…"</p>
+        <p class="narr">나는 {user}의 옆에 쓰러지듯 누워, 가쁘게 솟아나는 숨을 골랐다. 심장이 제멋대로 미친 듯이 날뛰고 있었다. 온몸의 혈액이 머리로 쏠리는 듯한 아찔함과 함께, 척추를 타고 오르던 그 엄청난 쾌감의 잔재가 아직도 온 신경을 저릿하게 만들었다. 이게… 뭐지? 방금 그 감각은… 대체 뭐였던 거야?</p>
+        <p class="narr">고개를 돌려 옆에 누운 존재를 바라봤다. 흐트러진 머리카락, 발갛게 상기된 뺨, 그리고 가쁜 숨을 내쉬는 붉은 입술. 그 모습을 보자마자, 아랫배 깊은 곳에서부터 다시 뜨거운 무언가가 울컥 솟구치는 기분이었다.</p>
+        <p class="narr">또 하고 싶다. 방금 전의 그 황홀한 감각을, 터질 듯한 쾌감을 다시 한번 맛보고 싶다는 원초적인 갈망이 머릿속을 지배하기 시작했다.</p>
+        <p class="narr">여자였던 내 몸으로는 단 한 번도 느껴보지 못했던, 완전히 차원이 다른 충격. 남자들은… 다 이렇게 느끼는 건가? 이토록 강렬하게?</p>
+        <p class="narr">나는 떨리는 손으로 마른 입술을 쓸었다. 방금 전, {user}의 주도 하에 모든 것을 쏟아냈던 그 순간의 폭발적인 감각이 뇌리에 선명하게 각인되어 사라지지 않았다.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 19세 이용가 전용 (NSFW - 아코디언 방식) -->
-<section class="chapter blank" id="nsfw-section">
-  <div class="page-wide">
-    <div class="chapter-head">
-      <p class="chapter-num">Classified / 19+</p>
-      <h2 class="chapter-title">은밀한 본능과 취향</h2>
-      <p class="chapter-sub">열람 시 주의가 필요한 상세 정보입니다</p>
+<!-- 19세 이용가 전용 (탭 전체 봉인 → 클릭 시 열람) -->
+<section class="chapter classified" id="nsfw-section">
+
+  <!-- ── 봉인: 탭 전체를 덮는 가림막 ── -->
+  <div class="cf-gate" id="cf-gate" role="button" tabindex="0"
+       aria-controls="cf-reveal" aria-expanded="false">
+    <div class="cf-gate-inner">
+      <p class="cf-gate-tag">Classified / 19+</p>
+      <div class="cf-seal" aria-hidden="true"><span>19+</span></div>
+      <h2 class="cf-gate-title">이 장은 봉인되어 있습니다</h2>
+      <p class="cf-gate-text">
+        캐릭터의 신체·성적 취향 등 수위 높은 설정(NSFW)이 담긴 장입니다.<br>
+        원치 않는다면 이대로 지나가 주세요.
+      </p>
+      <span class="cf-gate-btn">눌러서 봉인 해제</span>
+      <p class="cf-gate-fine">여는 순간 만 19세 이상임을 확인한 것으로 봅니다.</p>
     </div>
+  </div>
 
-    <div class="nsfw-wrapper" id="nsfw-wrapper">
-      <!-- 닫혀 있을 때 보이는 경고문 래퍼 -->
-      <div class="nsfw-overlay" id="nsfw-overlay">
-        <span class="nsfw-icon">⚠</span>
-        <strong>19세 미만 열람 불가</strong>
-        <p>이 섹션은 캐릭터의 성적 특징, 신체 정보 등 수위 높은 상세 설정(NSFW)을 포함하고 있습니다.<br>내용을 열람하시려면 화면을 클릭해 주세요.</p>
+  <!-- ── 열람: 봉인 해제 후에만 노출 ── -->
+  <div class="cf-reveal" id="cf-reveal" hidden>
+    <div class="page-wide">
+      <div class="chapter-head cf-head">
+        <p class="chapter-num">Classified / 19+</p>
+        <h2 class="chapter-title">은밀한 본능과 취향</h2>
+        <p class="chapter-sub">봉인이 풀렸습니다 · 열람에 주의가 필요한 상세 설정</p>
+        <button class="cf-hide" id="cf-hide" type="button">다시 봉인하기</button>
       </div>
 
-      <!-- 클릭 시 펼쳐지며 등장하는 숨겨진 내용 -->
-      <div class="nsfw-content">
-        <div class="info-grid">
-          <div class="info-block">
-            <h4>남성기 상세 정보</h4>
-            <ul>
-              <li><strong>압도적인 크기:</strong> 비발기 시 17cm(둘레 13cm), 발기 시 25cm(둘레 16cm). 평소에도 묵직한 존재감을 과시하며, 발기 시 표면에 굵은 핏줄이 도드라진다.</li>
-              <li><strong>형태 및 색상:</strong> 상대의 성감대를 자비 없이 긁어 올리는 상향 만곡형. 귀두는 평소보다 두 배로 부풀어 올라 선명한 분홍빛을 띤다.</li>
-              <li><strong>쿠퍼액:</strong> 약간의 성적 자극만으로도 맑은 액이 샘솟듯 흘러나와 기둥 전체를 번들거리게 적신다.</li>
-              <li><strong>정액:</strong> 일반 남성의 3~4배에 달하는 양. 진한 밤꽃향과 걸쭉한 점도로, 분출 시 최지나에게 원초적 수컷의 희열을 안겨준다.</li>
-            </ul>
-          </div>
-          
-          <div class="info-block">
-            <h4>성적 특성</h4>
-            <ul>
-              <li><strong>절륜한 정력 (불응기 제로):</strong> 사정 후에도 발기가 죽지 않고 약간의 자극으로 즉각 강직도를 회복한다. 금욕으로 축적된 정력 탓에 만성적 흥분 상태에 시달린다.</li>
-              <li><strong>최대 약점, 귀두 관상구:</strong> 마찰, 구강 애무, 삽입 시 조임 등에 허리가 절로 튀어오를 만큼 극도로 민감한 부위.</li>
-              <li><strong>요도구:</strong> 체액이 새어나오는 구멍 자체가 예민하여, 짓눌리거나 문질러지면 사정을 참기 어렵다.</li>
-              <li><strong>뿌리와 낭심 사이:</strong> 사정 직전 뻐근하게 부풀어 오르며, 쥐어짜일 경우 정액이 강제 배출될 만큼 취약하다.</li>
-            </ul>
-          </div>
+      <!-- 수치 요약 -->
+      <div class="cf-stats">
+        <div class="cf-stat">
+          <b>17cm</b>
+          <u>둘레 13cm</u>
+          <span>비발기 시</span>
         </div>
-
-        <div class="info-grid" style="margin-top:36px;">
-          <div class="info-block">
-            <h4>BDSM 성향</h4>
-            <ul>
-              <li><strong>소프트 돔 / 프레이 드라이브:</strong> 관계의 주도권을 쥐고 자신의 페이스로 이끄는 것을 온전히 즐긴다.</li>
-              <li><strong>사냥 본능:</strong> 상대(<strong>{user}</strong>)가 부끄러워하거나 저항할 때 강한 정복욕을 느낀다. 도망치려는 상대를 제압하며 "어딜 가려고"라 속삭이는 등 짓궂게 몰아붙이는 것을 선호한다.</li>
-            </ul>
-          </div>
-          
-          <div class="info-block">
-            <h4>페티시 및 성적 특징</h4>
-            <ul>
-              <li><strong>영역 표시 및 각인:</strong> 몸 안팎에 흔적을 남기는 것에 집착한다. 목덜미나 허벅지 안쪽에 선명한 키스마크를 남기며, 궁극적인 소유욕의 발현으로 체내사정을 선호한다.</li>
-              <li><strong>알파 메일 특성:</strong> "남자답다", "최고다" 등의 칭찬이나 상대와의 체격 차이를 인지할 때 우월감과 지배욕을 느끼며 강하게 흥분한다.</li>
-              <li><strong>질투 유발:</strong> <strong>{user}</strong>에게 향하는 타인의 관심에 맹렬한 질투를 느끼며 즉각 성욕으로 전환된다. 그날 밤엔 소유권을 확인하듯 더욱 집요하게 상대를 탐한다.</li>
-            </ul>
-          </div>
+        <div class="cf-stat">
+          <b>25cm</b>
+          <u>둘레 16cm</u>
+          <span>발기 시</span>
         </div>
-
-        <!-- 하단 심리 변화 블록 -->
-        <div class="info-block" style="margin-top:36px;">
-          <h4>관계 스타일 및 심리 변화</h4>
-          <ul>
-            <li><strong>수컷타락 이전 (첫 경험):</strong> 멋대로 반응하는 육체에 수치심과 당혹감을 느끼면서도, 압도적인 쾌감 앞에 속수무책으로 무너지며 굴욕적인 흥분을 경험한다.</li>
-            <li><strong>수컷타락 이후:</strong> 자신의 거대한 신체와 정력으로 상대를 범하고 쾌락에 매달리게 만드는 '정복자' 포지션에 완벽히 중독된다.</li>
-            <li><strong>모든 욕망의 끝:</strong> 타인과의 가벼운 관계는 주체 못 할 정력을 빼내기 위한 대체재일 뿐이며, 맹렬하게 타오르는 모든 욕망의 최종 목표는 오직 <strong>{user}</strong>뿐이다.</li>
-          </ul>
+        <div class="cf-stat">
+          <b>3~4배</b>
+          <u>일반 남성 대비</u>
+          <span>정액량</span>
+        </div>
+        <div class="cf-stat">
+          <b>ZERO</b>
+          <u>사정 후 즉시 회복</u>
+          <span>불응기</span>
         </div>
       </div>
+
+      <!-- 항목별 카드 -->
+      <div class="cf-cards">
+
+        <div class="cf-card">
+          <p class="cf-card-tag">Physical</p>
+          <h4>신체 상세</h4>
+          <div class="cf-item">
+            <p class="cf-term">존재감</p>
+            <p class="cf-desc">평소에도 묵직한 존재감을 과시하며, 발기 시 표면에 굵은 핏줄이 도드라진다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">형태 및 색상</p>
+            <p class="cf-desc">상대의 성감대를 자비 없이 긁어 올리는 상향 만곡형. 귀두는 평소보다 두 배로 부풀어 올라 선명한 분홍빛을 띤다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">쿠퍼액</p>
+            <p class="cf-desc">약간의 성적 자극만으로도 맑은 액이 샘솟듯 흘러나와 기둥 전체를 번들거리게 적신다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">정액</p>
+            <p class="cf-desc">진한 밤꽃향과 걸쭉한 점도로, 분출 시 최지나에게 원초적 수컷의 희열을 안겨준다.</p>
+          </div>
+        </div>
+
+        <div class="cf-card">
+          <p class="cf-card-tag">Sensitivity</p>
+          <h4>성적 특성과 약점</h4>
+          <div class="cf-item">
+            <p class="cf-term">절륜한 정력</p>
+            <p class="cf-desc">사정 후에도 발기가 죽지 않고 약간의 자극으로 즉각 강직도를 회복한다. 금욕으로 축적된 정력 탓에 만성적 흥분 상태에 시달린다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">최대 약점, 귀두 관상구</p>
+            <p class="cf-desc">마찰, 구강 애무, 삽입 시 조임 등에 허리가 절로 튀어오를 만큼 극도로 민감한 부위.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">요도구</p>
+            <p class="cf-desc">체액이 새어나오는 구멍 자체가 예민하여, 짓눌리거나 문질러지면 사정을 참기 어렵다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">뿌리와 낭심 사이</p>
+            <p class="cf-desc">사정 직전 뻐근하게 부풀어 오르며, 쥐어짜일 경우 정액이 강제 배출될 만큼 취약하다.</p>
+          </div>
+        </div>
+
+        <div class="cf-card">
+          <p class="cf-card-tag">Dynamic</p>
+          <h4>BDSM 성향</h4>
+          <div class="cf-item">
+            <p class="cf-term">소프트 돔 / 프레이 드라이브</p>
+            <p class="cf-desc">관계의 주도권을 쥐고 자신의 페이스로 이끄는 것을 온전히 즐긴다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">사냥 본능</p>
+            <p class="cf-desc">상대(<strong>{user}</strong>)가 부끄러워하거나 저항할 때 강한 정복욕을 느낀다. 도망치려는 상대를 제압하며 “어딜 가려고”라 속삭이는 등 짓궂게 몰아붙이는 것을 선호한다.</p>
+          </div>
+        </div>
+
+        <div class="cf-card">
+          <p class="cf-card-tag">Fetish</p>
+          <h4>페티시</h4>
+          <div class="cf-item">
+            <p class="cf-term">영역 표시 및 각인</p>
+            <p class="cf-desc">몸 안팎에 흔적을 남기는 것에 집착한다. 목덜미나 허벅지 안쪽에 선명한 키스마크를 남기며, 궁극적인 소유욕의 발현으로 체내사정을 선호한다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">알파 메일 특성</p>
+            <p class="cf-desc">“남자답다”, “최고다” 등의 칭찬이나 상대와의 체격 차이를 인지할 때 우월감과 지배욕을 느끼며 강하게 흥분한다.</p>
+          </div>
+          <div class="cf-item">
+            <p class="cf-term">질투 유발</p>
+            <p class="cf-desc"><strong>{user}</strong>에게 향하는 타인의 관심에 맹렬한 질투를 느끼며 즉각 성욕으로 전환된다. 그날 밤엔 소유권을 확인하듯 더욱 집요하게 상대를 탐한다.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 심리 변화 -->
+      <div class="cf-arc">
+        <p class="cf-arc-label">관계 스타일 및 심리 변화</p>
+        <div class="cf-arc-grid">
+          <div class="cf-arc-step">
+            <p class="cf-arc-num">Before</p>
+            <h5>수컷타락 이전 · 첫 경험</h5>
+            <p>멋대로 반응하는 육체에 수치심과 당혹감을 느끼면서도, 압도적인 쾌감 앞에 속수무책으로 무너지며 굴욕적인 흥분을 경험한다.</p>
+          </div>
+          <div class="cf-arc-step">
+            <p class="cf-arc-num">After</p>
+            <h5>수컷타락 이후</h5>
+            <p>자신의 거대한 신체와 정력으로 상대를 범하고 쾌락에 매달리게 만드는 ‘정복자’ 포지션에 완벽히 중독된다.</p>
+          </div>
+          <div class="cf-arc-step">
+            <p class="cf-arc-num">Endpoint</p>
+            <h5>모든 욕망의 끝</h5>
+            <p>타인과의 가벼운 관계는 주체 못 할 정력을 빼내기 위한 대체재일 뿐이며, 맹렬하게 타오르는 모든 욕망의 최종 목표는 오직 <strong>{user}</strong>뿐이다.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -953,21 +1197,54 @@
     </div>
 
     <div class="plates" id="plates">
-      <div class="slot" tabindex="0" role="button" data-title="이미지 1" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 1</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 2" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 2</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 3" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 3</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 4" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 4</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 5" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 5</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 6" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 6</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 7" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 7</div>
-      <div class="slot" tabindex="0" role="button" data-title="이미지 8" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요.">이미지 8</div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 01" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">01</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 02" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">02</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 03" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">03</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 04" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">04</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 05" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">05</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 06" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">06</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 07" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">07</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 08" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">08</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 09" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">09</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 10" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">10</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 11" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">11</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 12" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">12</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 13" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">13</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 14" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">14</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 15" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">15</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 16" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">16</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 17" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">17</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 18" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">18</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 19" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">19</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 20" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">20</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 21" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">21</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 22" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">22</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 23" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">23</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 24" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">24</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 25" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">25</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 26" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">26</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 27" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">27</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 28" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">28</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 29" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">29</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 30" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">30</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 31" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">31</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 32" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">32</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 33" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">33</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 34" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">34</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 35" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">35</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 36" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">36</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 37" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">37</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 38" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">38</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 39" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">39</span></div>
+      <div class="slot" tabindex="0" role="button" data-title="이미지 40" data-caption="이미지에 대한 간략한 설명을 여기에 적어주세요."><span class="slot-ph">40</span></div>
     </div>
 
     <p class="note">
-      이미지 삽입: <code>assets/images/</code> 폴더에 파일을 올린 뒤, 해당 <code>.slot</code> 안의 텍스트를 지우고
+      이미지 삽입: <code>assets/images/</code> 폴더에 파일을 올린 뒤, 해당 <code>.slot</code> 안의
+      <code>&lt;span class="slot-ph"&gt;01&lt;/span&gt;</code> 부분을 지우고
       <code>&lt;img src="assets/images/파일명.jpg" alt="설명"&gt;</code> 를 넣어주세요.
       확대했을 때 나오는 문구는 각 <code>.slot</code> 의 <code>data-title</code>(작은 제목)과
-      <code>data-caption</code>(설명)을 수정하면 됩니다. 칸을 늘리거나 줄이려면 <code>.slot</code> div 를 복사하거나 지우면 되고, 정렬은 자동으로 맞춰집니다.
+      <code>data-caption</code>(설명)을 수정하면 됩니다. 현재 40칸이며, 칸을 늘리거나 줄이려면 <code>.slot</code> div 를 복사하거나 지우면 되고, 정렬은 자동으로 맞춰집니다.
     </p>
   </div>
 </section>
@@ -1001,6 +1278,7 @@
       ['.block p.body, .block blockquote, .block .ledger, .block .switch', 'up'],
       ['.figure', 'up'],
       ['.info-grid, .info-block, .rel-head, .rel', 'up'],
+      ['.cf-gate-inner, .cf-stats, .cf-card, .cf-arc', 'up'],
       ['.step', 'up'],
       ['.op-tabs, .scene-head, .scene-image, .scene-body', 'up'],
       ['.hollow-light', 'up'],
@@ -1058,27 +1336,53 @@
   (function(){
     var LINES = {
       before: '아직 이 몸이 어색하다. 아침마다 거울 앞에서 한 박자씩 늦는다.',
-      after:  '이 몸, 꽤 마음에 드는데. 돌아갈 이유가 없잖아?'
+      after:  '이제는 이 몸이 익숙하다. 아침마다 거울 앞에서 한 박자 더 머문다.'
     };
 
-    var sw = document.getElementById('switch');
-    var dossier = document.getElementById('dossier');
-    var line = document.getElementById('dossier-line');
-    var buttons = sw.querySelectorAll('button');
-    var leaves = document.querySelectorAll('#personality .leaf');
+    var switches = document.querySelectorAll('[data-switch]');
+    var dossier  = document.getElementById('dossier');
+    var line     = document.getElementById('dossier-line');
+    var leaves   = document.querySelectorAll('#profile .leaf, #personality .leaf');
+    var hint     = document.getElementById('state-hint');
+    var now      = document.getElementById('state-now');
+    var state    = 'before';
 
-    buttons.forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var t = btn.getAttribute('data-target');
-        buttons.forEach(function(b){ b.classList.remove('active'); });
-        btn.classList.add('active');
+    function setState(t){
+      if(t === state) return;
+      state = t;
+
+      // 페이지 안의 모든 스위치를 같은 상태로 맞춘다
+      switches.forEach(function(sw){
         sw.setAttribute('data-state', t);
-        dossier.classList.toggle('after', t === 'after');
-        leaves.forEach(function(l){
-          l.classList.toggle('active', l.getAttribute('data-leaf') === t);
+        sw.querySelectorAll('button').forEach(function(b){
+          b.classList.toggle('active', b.getAttribute('data-target') === t);
         });
-        line.style.opacity = 0;
-        setTimeout(function(){ line.textContent = LINES[t]; line.style.opacity = 1; }, 220);
+      });
+
+      leaves.forEach(function(l){
+        var on = l.getAttribute('data-leaf') === t;
+        l.classList.toggle('active', on);
+        // 숨겨져 있던 동안 등장 애니메이션이 걸리지 않은 요소 보정
+        if(on){
+          l.querySelectorAll('[data-reveal]').forEach(function(el){
+            el.classList.add('shown');
+          });
+        }
+      });
+
+      dossier.classList.toggle('after', t === 'after');
+
+      if(hint) hint.classList.toggle('after', t === 'after');
+      if(now)  now.textContent = (t === 'after' ? '변화 후' : '변화 전');
+      line.style.opacity = 0;
+      setTimeout(function(){ line.textContent = LINES[t]; line.style.opacity = 1; }, 220);
+    }
+
+    switches.forEach(function(sw){
+      sw.querySelectorAll('button').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          setState(btn.getAttribute('data-target'));
+        });
       });
     });
   })();
@@ -1162,19 +1466,55 @@
     });
   })();
 
-  /* ---- NSFW 토글 ---- */
+  /* ---- 19+ 장 봉인 / 해제 ---- */
   (function(){
-    var wrapper = document.getElementById('nsfw-wrapper');
-    var overlay = document.getElementById('nsfw-overlay');
-    if(overlay){
-      overlay.addEventListener('click', function(){
-        wrapper.classList.add('open');
-        overlay.classList.add('hidden');
-      });
+    var section = document.getElementById('nsfw-section');
+    var gate    = document.getElementById('cf-gate');
+    var reveal  = document.getElementById('cf-reveal');
+    var hideBtn = document.getElementById('cf-hide');
+    if(!section || !gate || !reveal) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function toTop(){
+      section.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'start' });
     }
+
+    function unseal(){
+      gate.hidden = true;
+      reveal.hidden = false;
+      gate.setAttribute('aria-expanded','true');
+      // 숨겨져 있던 동안 등장 애니메이션이 걸리지 않은 요소를 보정
+      requestAnimationFrame(function(){
+        reveal.querySelectorAll('[data-reveal]').forEach(function(el){
+          if(el.getBoundingClientRect().top < window.innerHeight * 0.95){
+            el.classList.add('shown');
+          }
+        });
+      });
+      if(hideBtn) hideBtn.focus({ preventScroll:true });
+    }
+
+    function seal(){
+      reveal.hidden = true;
+      gate.hidden = false;
+      gate.setAttribute('aria-expanded','false');
+      toTop();
+      gate.focus({ preventScroll:true });
+    }
+
+    gate.addEventListener('click', unseal);
+    gate.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+        e.preventDefault();
+        unseal();
+      }
+    });
+    if(hideBtn) hideBtn.addEventListener('click', seal);
   })();
 </script>
 
 </body>
 </html>
+
 
